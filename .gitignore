@@ -1,0 +1,6 @@
+# Environnement virtuel
+env_othello/
+
+# Fichiers Python compilés
+__pycache__/
+*.pyc
