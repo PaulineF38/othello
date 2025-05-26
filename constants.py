@@ -6,5 +6,6 @@
 
 BLACK = 0
 WHITE = 1
-BLACK_STR = ⚫️
-WHITE_STR = ⚪️
+BLACK_STR = "⚫️"
+WHITE_STR = "⚪️"
+
