@@ -16,3 +16,5 @@ Si vous installez un nouveau package (par exemple : `pip install nom_du_package`
 `pip freeze > requirements.txt`
 
 Ne pas oublier de commit et push le fichier requierment!
+
+Fichier excalidraw: https://excalidraw.com/#json=mK2sqJwhYLho7s3JmG3du,trcvaxU3JlN76mXhNJPgXQ
