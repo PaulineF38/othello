@@ -17,12 +17,12 @@ class Pawn:
         
     def swapcolor(self):
         if self.color=="white":
-            return "white"
+            return 1
         else:
-            return "black"
+            return 0
     
     def __repr__(self):
-        return f"Pawn (color={self.color})"
+        return f"Pawn(color={self.color})"
 
 
 
