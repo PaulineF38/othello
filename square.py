@@ -15,5 +15,3 @@ class Square:
             return self.pawn=poins 
         else:
             return f"the square is already occuped"
-
-
