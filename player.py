@@ -14,7 +14,11 @@ class Player() :
     # --------------------------------------------------------------------------
 
     def __init__(self, color: int) -> None:
-        """Init a Player by asking its name o the user"""
+        """Init a Player by asking its name to the user
+
+        Args:
+            color (int): _description_
+        """
         pass
 
     # --------------------------------------------------------------------------
@@ -60,5 +64,12 @@ class Player() :
     # --------------------------------------------------------------------------
     
     def play(self, info: str) -> str:
-        """Display something to the player and ask what to do"""
+        """Display something to the player and ask him what to do
+
+        Args:
+            info (str): info to display to the player
+
+        Returns:
+            str: input given by the user
+        """
         pass
