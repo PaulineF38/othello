@@ -17,4 +17,34 @@ Si vous installez un nouveau package (par exemple : `pip install nom_du_package`
 
 Ne pas oublier de commit et push le fichier requierment!
 
-Fichier excalidraw: https://excalidraw.com/#json=mK2sqJwhYLho7s3JmG3du,trcvaxU3JlN76mXhNJPgXQ
+Fichier excalidraw: https://excalidraw.com/#json=aKuzMQzwyojDc5XvBgmEb,S6-SfKPeDaYG6VN5rcvKuw
+
+# Configuer la docstring
+
+`File > Preferences > Configuration Snippets` et choisir `Python` => ouvre un python.json. Dans ce doc coller ca : 
+
+"Python Docstring": {
+    "prefix": "docstring",
+    "body": [
+        "\"\"\"",
+        "Summary.",
+        "",
+        "Args:",
+        "    ${1:param1} (${2:type}): Description.",
+        "",
+        "Returns:",
+        "    ${3:type}: Description.",
+        "\"\"\""
+    ],
+    "description": "Insert Python docstring"
+}
+
+Installer l'extention `autoDocstring - Python docstring`
+
+Normalement il suffit de vous mettre sous une fonction, faire `ctrl alt 2` et la docstring sera générée formatée.
+Attention a bien ecrire votre fonction => exemple : def adjacent (board : list, color: int, position : tuple) -> bool
+
+Dans la norme PEP 8 : 
+ - Résumé en une seule ligne;
+ - Commence par une majuscule;
+ - Écris au mode impératif (ex : “Return the sum of a and b”, pas “Returns the sum…”).
