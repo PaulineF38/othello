@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf8 -*-
 #
 # Author : Xavier BEDNAREK
@@ -19,7 +20,19 @@ class Player() :
         Args:
             color (int): _description_
         """
-        pass
+        # Set color :
+        if color not in [BLACK, WHITE]:
+            raise TypeError(f"Color must be either color={BLACK} ({BLACK_STR}) or color={WHITE} ({WHITE_STR}) !")
+        self._color = color
+        # Set name :
+        self.name = Player.ask_name()
+        # Display welcome message
+        print("Welcome " + self.name + " !", end=" ")
+        if self.color == BLACK :
+            print("You play black pawns : " + BLACK_STR +" !", end=" ")
+        if self.color == WHITE :
+            print("You play white pawns : " + WHITE_STR +" !", end=" ")
+        print("Good luck !")
 
     # --------------------------------------------------------------------------
     #                                                                 Properties
@@ -33,13 +46,11 @@ class Player() :
 
     @color.setter
     def color(self, color: int) -> None:
-        if color not in [BLACK, WHITE]:
-            raise TypeError(f"Color must be either color={BLACK} ({BLACK_STR}) or color={WHITE} ({WHITE_STR}) !")
-        self._color = color
+        raise Exception("You are not able to edit the property : color !")
 
     @color.deleter
     def color(self) -> None:
-        raise Exception("You can not do that !")
+        raise Exception("You are not able to delete the property : color !")
     
     # Name --------------------------------------------------------------------
     @property # getter
@@ -57,12 +68,22 @@ class Player() :
 
     @name.deleter
     def name(self) -> None:
-        raise Exception("You can not do that !")
+        raise Exception("You are not able to delete the property : name !")
 
     # --------------------------------------------------------------------------
     #                                                                    Methods
     # --------------------------------------------------------------------------
-    
+
+    @staticmethod
+    def ask_name() -> str:
+        """Ask the user to give his name
+
+
+        Returns:
+            str: name chosen by the player
+        """
+        return input("Choose a name : ")
+
     def play(self, info: str) -> str:
         """Display something to the player and ask him what to do
 
@@ -72,4 +93,10 @@ class Player() :
         Returns:
             str: input given by the user
         """
-        pass
+        return input(info)
+
+if __name__=='__main__':
+    
+    # Test player init :
+    p_black = Player(BLACK)
+    p_white = Player(WHITE)
