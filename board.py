@@ -1,18 +1,59 @@
+from square import Square
+import constants
+
 class Board:
     def __init__(self,grid):
         self._grid = grid
+        self.grid = [
+            [Square() for _ in range(8)]
+            for _ in range(8)
+        ]
+
+        for i, row in enumerate(grid):
+            for j, element in enumerate(row):
+                Square.list_voisin = i,j # a changer avec le nom de que Nouhaila donnera!
+
+
+        self.grid[3][3].pawn.color = constants.WHITE
+        self.grid[3][4].pawn.color = constants.BLACK
+        self.grid[4][3].pawn.color = constants.BLACK
+        self.grid[4][4].pawn.color = constants.WHITE
+
+
     
     @property
     def grid(self):
         return self._grid
 
-    def draw_board() -> str: 
+    def draw_board(self) -> str: 
         """ Display the board in the terminal.
 
         Returns:
             str: board of the game that is send to Game.
-        """                
-        pass
+        """    
+        display = "    A    B    C    D    E    F    G    H\n"
+        display += " +----"
+        for i in range (7):
+            display += "+----"
+        display += "+\n"
+        for i, row in enumerate(self.grid):
+            display += f"{i+1}"
+            
+            for square in row:
+                display += "|"
+                if square.pawn.color == constants.WHITE:
+                    display += " " + constants.WHITE_STR + " "
+                elif square.pawn.color == constants.BLACK:
+                    display += " " + constants.BLACK_STR + " "
+                else:
+                    display += "    "
+            display += '|\n'
+            display += " +----"
+            for i in range (7):
+                display += "+----"
+            display += "+\n"
+        return display            
+        
 
     def score() -> dict:
         """Calculate the score of each player.
@@ -22,7 +63,7 @@ class Board:
         """        
         pass
 
-    def get_square(position : tuple) -> square:
+    def get_square(position : tuple) -> Square:
         """
         Get the square at the given coordinates.
 
@@ -46,9 +87,20 @@ class Board:
                   False = all adjacent squares are empty. 
         """ 
 
-        pass
+        i, j = position  
+        directions = [(-1, -1), (-1, 0), (-1, 1),(0, -1),(0, 1),(1, -1),  (1, 0), (1, 1)]
+        
+        for di, dj in directions:
+            ni, nj = i + di, j + dj
+            
+            if 0 <= ni < len(self.grid) and 0 <= nj < len(self.grid[0]):
+                neighbor_square = self.grid[ni][nj]
+                if neighbor_square.pawn is not None:
+                    return True  
+        
+        return False  
 
-    def capture (self, position: tuple) -> tuple:
+    def capture (self, position: tuple) -> list:
         """
         Find all the positions where pawns will be flipped.
 
@@ -56,9 +108,7 @@ class Board:
             position (tuple): (i, j), coordinates of a square.
 
         Returns:
-            tuple: (bool, list): 
-                - bool: True if at least one pawn can be flipped, False otherwise.
-                - list: List of coordinates [(i1, j1), (i2, j2), ...] of pawns to flip.
+            list: List of coordinates [pawn, pawn, ...] of pawns to flip.
         """     
 
         pass
@@ -74,5 +124,10 @@ class Board:
         Returns:
             list: list of the position possible, if nothing is possible return empty list.   
         """    
-        pass
+        i, j = position
+        square = self.grid[i][j]
+
+        if square.pawn is not None:
+            return []
+
 
