@@ -3,21 +3,24 @@ from constants import BLACK, WHITE, BLACK_STR, WHITE_STR
 from pawn import Pawn
 
 class Board:
-    def __init__(self,grid):
+    def __init__(self):
         self._grid = [
             [Square() for _ in range(8)]
             for _ in range(8)
         ]
+        
+        directions = [(1, -1), (1, 0), (1, 1), (0, -1), (0, 1), (-1, -1), (-1, 0), (-1, 1)]
+        for i, row in enumerate(self.grid):
+            for j, square in enumerate(row):
+                for k, l in directions :
+                    if self._position_is_ok(i+k,j+l) :
+                        square.add_adjacent(self.grid[i+k][j+l]) 
 
-        for i, row in enumerate(grid):
-            for j, element in enumerate(row):
-                Square.list_voisin = case_voisine # a changer avec le nom de que Nouhaila donnera!
 
-
-        self._grid[3][3].pawn.color = WHITE
-        self._grid[3][4].pawn.color = BLACK
-        self._grid[4][3].pawn.color = BLACK
-        self._grid[4][4].pawn.color = WHITE
+        self._grid[3][3].fill_square(Pawn(WHITE))
+        self._grid[3][4].fill_square(Pawn(BLACK))
+        self._grid[4][3].fill_square(Pawn(BLACK))
+        self._grid[4][4].fill_square(Pawn(WHITE))
 
 
     
@@ -41,12 +44,7 @@ class Board:
             
             for square in row:
                 display += "|"
-                if square.pawn.color == WHITE:
-                    display += " " + WHITE_STR + " "
-                elif square.pawn.color == BLACK:
-                    display += " " + BLACK_STR + " "
-                else:
-                    display += "    "
+                display += str(square)
             display += '|\n'
             display += " +----"
             for i in range (7):
@@ -62,33 +60,18 @@ class Board:
             dict: {white : score (int), black : score (int)}
         """  
         dict_score = {}
-        white_score = 0
-        black_score = 0
+        dict_score["White "] = 0
+        dict_score["Black "] = 0
         for i, row in enumerate(self._grid):
             for square in row:
                 if not square.empty_square() :
                     if square.content.color == WHITE :
-                        white_score += 1
+                        dict_score["White "] += 1
                     elif square.content.color == BLACK:
-                        black_score += 1
-        dict_score["White :"] = white_score
-        dict_score["Black :"] = black_score
+                        dict_score["Black "] += 1
         return dict_score
 
         
-
-    def get_square(position : tuple) -> Square:
-        """
-        Get the square at the given coordinates.
-
-        Args:
-            position (tuple): Coordinates (i, j) on the board.
-position
-        Returns:
-            Square: Instance of the Square class at the specified position.
-        """
-
-        pass
 
     def _adjacent (self, i: int, j: int) -> bool:
         """  Check if adjacent squares are empty.
@@ -125,7 +108,7 @@ position
             # Get all pawn in the current explored direction
             pawns_in_direction = []
             # While the position exists and the square contains a pawn  :
-            while Board._position_is_ok(i+n*k, i+n*j) and not self.grid[i+n*k][j+n*l].empty_square() :
+            while Board._position_is_ok(i+n*k, j+n*l) and not self.grid[i+n*k][j+n*l].empty_square() :
                 pawns_in_direction.append(self.grid[i+n*k][j+n*l].pawn)
                 n = n + 1
             # Search the first pawn of the given color to know if we can flip some pawn
@@ -187,7 +170,6 @@ position
         Args:
             color (int): The color of the pawn (BLACK or WHITE).
             position (tuple): Coordinates (i, j).
-            pawn: Pawn object to place.
         
         Returns:
             bool: True = the move has been done
@@ -202,3 +184,11 @@ position
             return True
         else:
             return False
+
+
+
+if __name__=='__main__':
+    board1 = Board()
+    print(board1.draw_board())
+    
+
