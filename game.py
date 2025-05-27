@@ -10,7 +10,6 @@ class Game:
         self.player2 = Player(WHITE)
         self.board = Board()
     
-    # NB: game_end, draw_board and MakeMove are not ready
     def run(self):
         """Run the game
         """
@@ -86,30 +85,7 @@ class Game:
         Returns:
             bool: True if valid, False otherwise
         """
-        return re.match(r"^[a-h][1-8]$", move_str)
-
-    # maybe this function should be in the Board class
-    # def flip_list(list_to_flip):
-    #     # for each element of the list, execute the flip method
-    #     for i in list_to_flip:
-    #         pawn.flip()
-    
-    # def possible_moves(self) -> tuple:
-    #     """checks whether there are possible moves for each player
-
-    #     Returns:
-    #         tuple: None, None if there are no possible moves anymore
-    #     """
-    #     # for each square of the board grid, check if there would be a legal
-    #     # move on this square and 
-    #     player1_possible_moves = None
-    #     player2_possible_moves = None
-    #     for square in self.board.grid:
-    #         if isinstance(self.board.list_legal_moves(self.player1.color, square), list):
-    #             player1_possible_moves = self.board.list_legal_moves(self.player1.color, square)
-    #         if isinstance(self.board.list_legal_moves(self.player2.color, square), list):
-    #             player2_possible_moves = self.board.list_legal_moves(self.player2.color, square)
-    #     return player1_possible_moves, player2_possible_moves
+        return bool(re.match(r"^[a-h][1-8]$", move_str))
 
     def game_end(self) -> bool:
         """checks whether the game should be ended, because no possible moves
