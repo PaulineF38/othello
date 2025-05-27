@@ -22,12 +22,12 @@ class Game:
                 # then, start the player 1 turn 
                 print("---- Player 1 (black) turn ----")
                 # we ask player 1 to choose a move
-                player1_move_coord = self.str_to_coord(self.player1.play())
+                player1_move_coord = self.str_to_coord(self.player1.play("Your move: "))
 
                 # while makemove is false (i.e., illegal move), asks again the player
                 while (not self.board.make_move(self.player1.color, player1_move_coord)):
                     print('Invalid move. Try again!')
-                    player1_move_coord = self.str_to_coord(self.player1.play())
+                    player1_move_coord = self.str_to_coord(self.player1.play("Your move: "))
 
             # if player 2 has some possible moves, starting its turn
             if not len(self.board.list_legal_moves(WHITE)) == 0:
@@ -38,12 +38,12 @@ class Game:
                 # then, start the player 2 turn
                 print("---- Player 2 (white) turn ----")
                 # we ask player 1 to choose a move
-                player2_move_coord = self.str_to_coord(self.player2.play())
+                player2_move_coord = self.str_to_coord(self.player2.play("Your move: "))
 
                 # while makemove is false (i.e., illegal move), asks again the player
                 while (not self.board.make_move(self.player1.color, player2_move_coord)):
                     print('Invalid move. Try again!')
-                    player2_move_coord = self.str_to_coord(self.player2.play())
+                    player2_move_coord = self.str_to_coord(self.player2.play("Your move: "))
 
             # end of the turn, we loop back (if the game_end is not true)
         # if game_end is true, we print the scores
