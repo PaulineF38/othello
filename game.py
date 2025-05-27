@@ -17,7 +17,7 @@ class Game:
             # if player 1 has some possible moves, starting its turn
             if not len(self.board.list_legal_moves(BLACK)) == 0:
                 # first, draw the board
-                self.board.draw_board()
+                print(self.board.draw_board())
 
                 # then, start the player 1 turn 
                 print("---- Player 1 (black) turn ----")
@@ -33,7 +33,7 @@ class Game:
             if not len(self.board.list_legal_moves(WHITE)) == 0:
                 # once the move is accepted and the changes on the board are done,
                 # we print the updated board
-                self.board.draw_board()
+                print(self.board.draw_board())
 
                 # then, start the player 2 turn
                 print("---- Player 2 (white) turn ----")
