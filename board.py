@@ -88,29 +88,20 @@ class Board:
 
         pass
 
-    def adjacent (self, position : tuple) -> bool:
+    def adjacent (self, i: int, j: int) -> bool:
         """  Check if adjacent squares are empty.
 
         Args:
-            position (tuple): (i,j), coordinates of a squares
+            i (int): 1st coordinate of a squares (row)
+            j (int): 2nd coordinates of a squares (column)
 
         Returns:
             bool: True = at least one square is not empty.
                   False = all adjacent squares are empty. 
         """ 
+        
+        return any( [ not square.isempty() for square in self.grid[i][j].adjacent_squares])
 
-        i, j = position  
-        directions = [(-1, -1), (-1, 0), (-1, 1),(0, -1),(0, 1),(1, -1),  (1, 0), (1, 1)]
-        
-        for di, dj in directions:
-            ni, nj = i + di, j + dj
-            
-            if 0 <= ni < len(self.grid) and 0 <= nj < len(self.grid[0]):
-                neighbor_square = self.grid[ni][nj]
-                if neighbor_square.pawn is not None:
-                    return True  
-        
-        return False  
 
     def capture (self, position: tuple) -> list:
         """
