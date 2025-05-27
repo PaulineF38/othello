@@ -9,14 +9,20 @@ class Board:
             for _ in range(8)
         ]
         
+        # Define all 8 possible directions around a square (including diagonals)
         directions = [(1, -1), (1, 0), (1, 1), (0, -1), (0, 1), (-1, -1), (-1, 0), (-1, 1)]
+        # For each square on the board
         for i, row in enumerate(self.grid):
             for j, square in enumerate(row):
+                # For each possible adjacent direction
                 for k, l in directions :
+                    # Check if the neighboring position is within board limits
                     if self._position_is_ok(i+k,j+l) :
+                        # Add the valid neighboring square as adjacent
                         square.add_adjacent(self.grid[i+k][j+l]) 
 
 
+        # Initialization of the board with the starting pawns
         self._grid[3][3].fill_square(Pawn(WHITE))
         self._grid[3][4].fill_square(Pawn(BLACK))
         self._grid[4][3].fill_square(Pawn(BLACK))
@@ -34,17 +40,22 @@ class Board:
         Returns:
             str: board of the game that is send to Game.
         """    
+        # First raw of the board
         display = "    A    B    C    D    E    F    G    H\n"
         display += " +----"
+        #add first line of +---- +
         for i in range (7):
             display += "+----"
         display += "+\n"
         for i, row in enumerate(self._grid):
+            # print nulber of rows
             display += f"{i+1}"
             
             for square in row:
                 display += "|"
+                # add "   " if empty or pawn emojy if not.
                 display += str(square)
+            # close the last line of the board with +----+
             display += '|\n'
             display += " +----"
             for i in range (7):
@@ -60,10 +71,12 @@ class Board:
             dict: {white : score (int), black : score (int)}
         """  
         dict_score = {}
+        # Initialization score 
         dict_score["White "] = 0
         dict_score["Black "] = 0
         for i, row in enumerate(self._grid):
             for square in row:
+                # If the square is not empty, check the color of the pawn and increment player's score
                 if not square.empty_square() :
                     if square.content.color == WHITE :
                         dict_score["White "] += 1
@@ -175,10 +188,14 @@ class Board:
             bool: True = the move has been done
                   False = the move hasn't been done
         """    
+        # converte tuple in i,j
         i, j = position
 
+        # check if the player give a legal position to put his pawn
         if self.is_legal_move(color, i, j):
+            # Place the pawn on the square
             self.grid[i][j].fill(Pawn(color), i, j)
+            # flip pawn which need to be fliped
             list_pawn = self._capture(color, i, j)            
             map(Pawn.flip, list_pawn)
             return True
