@@ -194,10 +194,11 @@ class Board:
         # check if the player give a legal position to put his pawn
         if self.is_legal_move(color, i, j):
             # Place the pawn on the square
-            self.grid[i][j].fill(Pawn(color), i, j)
+            self.grid[i][j].fill_square(Pawn(color))
             # flip pawn which need to be fliped
-            list_pawn = self._capture(color, i, j)            
-            map(Pawn.flip, list_pawn)
+            list_pawn = self._capture(color, i, j)
+            for pawn in list_pawn :
+                pawn.flip()          
             return True
         else:
             return False
