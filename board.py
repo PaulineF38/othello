@@ -132,22 +132,37 @@ class Board:
                   False = the position is not ok
         """
         return 0 <= i and i < 8 and 0 <= j and j < 8
-
-    def legal_move(self, color : int , position : tuple) -> list:
+    
+    def is_legal_move(self, color: int, i: int, j:int) -> bool:
         """
-        Check if placing a pawn of the given color at the specified position is a legal move.
+        Check if putting a pawn of the given color at the given location (i, j) is legal or not
 
         Args:
-            color (int): The color of the pawn (BLACK or WHITE).
-            position (tuple): Coordinates (i, j) on the board where the pawn is to be placed.
+            color (int) : The color of the pawn (BLACK or WHITE).
+            i (int) : 1st coordinate (row)
+            j (int) : 2nd coordinates (column)
 
         Returns:
-            list: list of the position possible, if nothing is possible return empty list.   
-        """    
-        i, j = position
-        square = self.grid[i][j]
-
-        if square.pawn is not None:
-            return []
+            bool: True = the move is legal
+                  False = the move is not legal
+        """
+        return self.grid[i][j].empty_square and self._adjacent(i, j) and len(self._capture(color, i, j))>0 
 
 
+    def list_legal_moves(self, color: int) -> list:
+        """
+        Give all the possible moves for the given color
+
+        Args:
+            color (int) : The color of the pawn (BLACK or WHITE).
+
+        Returns:
+            list: list of all the position possible given as tuple (i,j), if nothing is possible return empty list.   
+        """
+        legal_move = [] 
+        for i in range(0, 8) :
+            for j in range(0, 8) :
+                if self.is_legal_move(color, i, j):
+                    legal_move.append((i,j))
+        return legal_move
+        
