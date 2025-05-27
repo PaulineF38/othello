@@ -1,5 +1,6 @@
 from square import Square
 from constants import BLACK, WHITE, BLACK_STR, WHITE_STR
+from pawn import Pawn
 
 class Board:
     def __init__(self,grid):
@@ -10,13 +11,13 @@ class Board:
 
         for i, row in enumerate(grid):
             for j, element in enumerate(row):
-                Square.list_voisin = i,j # a changer avec le nom de que Nouhaila donnera!
+                Square.list_voisin = case_voisine # a changer avec le nom de que Nouhaila donnera!
 
 
-        self.grid[3][3].pawn.color = constants.WHITE
-        self.grid[3][4].pawn.color = constants.BLACK
-        self.grid[4][3].pawn.color = constants.BLACK
-        self.grid[4][4].pawn.color = constants.WHITE
+        self._grid[3][3].pawn.color = WHITE
+        self._grid[3][4].pawn.color = BLACK
+        self._grid[4][3].pawn.color = BLACK
+        self._grid[4][4].pawn.color = WHITE
 
 
     
@@ -35,15 +36,15 @@ class Board:
         for i in range (7):
             display += "+----"
         display += "+\n"
-        for i, row in enumerate(self.grid):
+        for i, row in enumerate(self._grid):
             display += f"{i+1}"
             
             for square in row:
                 display += "|"
-                if square.pawn.color == constants.WHITE:
-                    display += " " + constants.WHITE_STR + " "
-                elif square.pawn.color == constants.BLACK:
-                    display += " " + constants.BLACK_STR + " "
+                if square.pawn.color == WHITE:
+                    display += " " + WHITE_STR + " "
+                elif square.pawn.color == BLACK:
+                    display += " " + BLACK_STR + " "
                 else:
                     display += "    "
             display += '|\n'
@@ -54,13 +55,27 @@ class Board:
         return display            
         
 
-    def score() -> dict:
+    def score(self) -> dict:
         """Calculate the score of each player.
 
         Returns:
             dict: {white : score (int), black : score (int)}
-        """        
-        pass
+        """  
+        dict_score = {}
+        white_score = 0
+        black_score = 0
+        for i, row in enumerate(self._grid):
+            for square in row:
+                if not square.empty_square() :
+                    if square.content.color == WHITE :
+                        white_score += 1
+                    elif square.content.color == BLACK:
+                        black_score += 1
+        dict_score["White :"] = white_score
+        dict_score["Black :"] = black_score
+        return dict_score
+
+        
 
     def get_square(position : tuple) -> Square:
         """
@@ -68,7 +83,7 @@ class Board:
 
         Args:
             position (tuple): Coordinates (i, j) on the board.
-
+position
         Returns:
             Square: Instance of the Square class at the specified position.
         """
@@ -148,7 +163,6 @@ class Board:
         """
         return self.grid[i][j].empty_square and self._adjacent(i, j) and len(self._capture(color, i, j))>0 
 
-
     def list_legal_moves(self, color: int) -> list:
         """
         Give all the possible moves for the given color
@@ -160,9 +174,31 @@ class Board:
             list: list of all the position possible given as tuple (i,j), if nothing is possible return empty list.   
         """
         legal_move = [] 
-        for i in range(0, 8) :
-            for j in range(0, 8) :
+        for i in range(0, len(self.grid)) :
+            for j in range(0, len(self.grid[i])) :
                 if self.is_legal_move(color, i, j):
                     legal_move.append((i,j))
         return legal_move
+
+    def make_move(self, color, position : tuple):
         
+        """Return the board with the new pawn if move is possible.
+
+        Args:
+            color (int): The color of the pawn (BLACK or WHITE).
+            position (tuple): Coordinates (i, j).
+            pawn: Pawn object to place.
+        
+        Returns:
+            bool: True = the move has been done
+                  False = the move hasn't been done
+        """    
+        i, j = position
+
+        if self.is_legal_move(color, i, j):
+            self.grid[i][j].fill(Pawn(color), i, j)
+            list_pawn = self._capture(color, i, j)            
+            map(Pawn.flip, list_pawn)
+            return True
+        else:
+            return False
