@@ -10,7 +10,7 @@ class Board:
 
         for i, row in enumerate(grid):
             for j, element in enumerate(row):
-                Square.list_voisin = i,j # a changer avec le nom de que Nouhaila donnera!
+                Square.list_voisin = case_voisine # a changer avec le nom de que Nouhaila donnera!
 
 
         self._grid[3][3].pawn.color = constants.WHITE
@@ -132,5 +132,28 @@ class Board:
 
         if square.pawn is not None:
             return []
+
+
+
+
+    def move(self, color, position : tuple, panw):
+        """ Return the board with the new pawn if move is possible
+
+        Args:
+            position (tuple): Convert coordinate in i,j
+    
+        """    
+
+        i,j = position
+        move_list = self.legal_move(self, color, position)
+        if position in move_list :
+            self.grid[i][j].fill(pawn,i,j)
+
+
+
+
+
+
+
 
 
