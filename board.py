@@ -3,10 +3,21 @@ from constants import BLACK, WHITE, BLACK_STR, WHITE_STR
 from pawn import Pawn
 
 class Board:
-    def __init__(self):
+    def __init__(self, n_rows: int = 8, n_cols: int = 8):
+        """ Create the board.
+
+        Args:
+            n_rows (int): number of rows
+            n_cols (int): number of cols
+        """  
+        if n_rows < 4 or n_cols < 4 :
+            raise ValueError("The Board must be at least 4x4 !")
+        if n_rows%2 ==1 or n_cols%2 == 1 :
+            raise ValueError("The Board must be NxM with N and M two even numbers !")
+            
         self._grid = [
-            [Square() for _ in range(8)]
-            for _ in range(8)
+            [Square() for _ in range(n_rows)]
+            for _ in range(n_cols)
         ]
         
         # Define all 8 possible directions around a square (including diagonals)
@@ -21,15 +32,15 @@ class Board:
                         # Add the valid neighboring square as adjacent
                         square.add_adjacent(self.grid[i+k][j+l]) 
 
+        n_rows = len(self.grid)
+        n_cols = len(self.grid[0])
 
         # Initialization of the board with the starting pawns
-        self._grid[3][3].fill_square(Pawn(WHITE))
-        self._grid[3][4].fill_square(Pawn(BLACK))
-        self._grid[4][3].fill_square(Pawn(BLACK))
-        self._grid[4][4].fill_square(Pawn(WHITE))
+        self._grid[n_rows//2-1][n_cols//2-1].fill_square(Pawn(WHITE))
+        self._grid[n_rows//2-1][n_cols//2].fill_square(Pawn(BLACK))
+        self._grid[n_rows//2][n_cols//2-1].fill_square(Pawn(BLACK))
+        self._grid[n_rows//2][n_cols//2].fill_square(Pawn(WHITE))
 
-
-    
     @property
     def grid(self):
         return self._grid
@@ -41,10 +52,10 @@ class Board:
             str: board of the game that is send to Game.
         """    
         # First raw of the board
-        display = "    A    B    C    D    E    F    G    H\n"
+        display = "    " + "    ".join([ chr(ord("A")+i) for i in range(0, len(self._grid[0])) ] ) +"\n"
         display += " +----"
         #add first line of +---- +
-        for i in range (7):
+        for i in range (len(self._grid[0])-1):
             display += "+----"
         display += "+\n"
         for i, row in enumerate(self._grid):
@@ -58,7 +69,7 @@ class Board:
             # close the last line of the board with +----+
             display += '|\n'
             display += " +----"
-            for i in range (7):
+            for i in range (len(self._grid[0])-1):
                 display += "+----"
             display += "+\n"
         return display            
@@ -121,7 +132,7 @@ class Board:
             # Get all pawn in the current explored direction
             pawns_in_direction = []
             # While the position exists and the square contains a pawn  :
-            while Board._position_is_ok(i+n*k, j+n*l) and not self.grid[i+n*k][j+n*l].empty_square() :
+            while self._position_is_ok(i+n*k, j+n*l) and not self.grid[i+n*k][j+n*l].empty_square() :
                 pawns_in_direction.append(self.grid[i+n*k][j+n*l].content)
                 n = n + 1
             # Search the first pawn of the given color to know if we can flip some pawn
@@ -131,8 +142,7 @@ class Board:
             pawns += pawns_in_direction[:idx] 
         return pawns
 
-    @staticmethod
-    def _position_is_ok(i: int,j: int) -> bool:
+    def _position_is_ok(self, i: int,j: int) -> bool:
         """ Check if the given position (i, j) is allowed in an othello board
 
         Args:
@@ -142,7 +152,7 @@ class Board:
             bool: True = the position is ok
                   False = the position is not ok
         """
-        return 0 <= i and i < 8 and 0 <= j and j < 8
+        return 0 <= i and i < len(self._grid) and 0 <= j and j < len(self._grid[0])
     
     def is_legal_move(self, color: int, i: int, j:int) -> bool:
         """

@@ -33,8 +33,9 @@ class Square:
         """                 
         if self.empty_square():
             self.content=pawn
+            return True
         else:
-            raise ValueError("the square is already occuped")
+            return False
     
 
     @property                           
