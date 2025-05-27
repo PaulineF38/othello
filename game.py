@@ -48,8 +48,8 @@ class Game:
             # end of the turn, we loop back (if the game_end is not true)
         # if game_end is true, we print the scores
         print("End of the game")
-        print("Player 1 (black) score: ", board.score[1])
-        print("Player 2 (white) score: ", board.score[0])
+        print("Player 1 (black) score: ", self.board.score()["Black "])
+        print("Player 2 (white) score: ", self.board.score()["White "])
 
     @staticmethod
     def str_to_coord(move_str: str) -> tuple:
