@@ -179,11 +179,11 @@ position
         i, j = position
         move_list = self.legal_move(color)
 
-        if position in move_list:
+        if is_legal_move(position):
 
             self.grid[i][j].fill(pawn, i, j)
             list_pawn = self._capture(color, i, j)            
-            list(map(flip, list_pawn))
+            map(flip, list_pawn)
 
 
         else:
