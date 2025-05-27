@@ -1,5 +1,6 @@
 from square import Square
 from constants import BLACK, WHITE, BLACK_STR, WHITE_STR
+from pawn import flip
 
 class Board:
     def __init__(self,grid):
@@ -13,10 +14,10 @@ class Board:
                 Square.list_voisin = case_voisine # a changer avec le nom de que Nouhaila donnera!
 
 
-        self._grid[3][3].pawn.color = constants.WHITE
-        self._grid[3][4].pawn.color = constants.BLACK
-        self._grid[4][3].pawn.color = constants.BLACK
-        self._grid[4][4].pawn.color = constants.WHITE
+        self._grid[3][3].pawn.color = WHITE
+        self._grid[3][4].pawn.color = BLACK
+        self._grid[4][3].pawn.color = BLACK
+        self._grid[4][4].pawn.color = WHITE
 
 
     
@@ -40,10 +41,10 @@ class Board:
             
             for square in row:
                 display += "|"
-                if square.pawn.color == constants.WHITE:
-                    display += " " + constants.WHITE_STR + " "
-                elif square.pawn.color == constants.BLACK:
-                    display += " " + constants.BLACK_STR + " "
+                if square.pawn.color == WHITE:
+                    display += " " + WHITE_STR + " "
+                elif square.pawn.color == BLACK:
+                    display += " " + BLACK_STR + " "
                 else:
                     display += "    "
             display += '|\n'
@@ -65,9 +66,9 @@ class Board:
         black_score = 0
         for i, row in enumerate(self._grid):
             for square in row:
-                if square.pawn.color == constants.WHITE :
+                if square.pawn.color == WHITE :
                     white_score += 1
-                elif square.pawn.color == constants.BLACK:
+                elif square.pawn.color == BLACK:
                     black_score += 1
         dict_score["White :"] = white_score
         dict_score["Black :"] = black_score
@@ -81,7 +82,7 @@ class Board:
 
         Args:
             position (tuple): Coordinates (i, j) on the board.
-
+position
         Returns:
             Square: Instance of the Square class at the specified position.
         """
@@ -166,22 +167,28 @@ class Board:
 
 
 
-    def move(self, color, position : tuple, pawn):
-        """ Return the board with the new pawn if move is possible
+    def make_move(self, color, position : tuple, pawn):
+        
+        """Return the board with the new pawn if move is possible.
 
         Args:
-            position (tuple): Convert coordinate in i,j
-    
+            color (int): Color of the pawn (0 for black, 1 for white).
+            position (tuple): Coordinates (i, j).
+            pawn: Pawn object to place.
         """    
+        i, j = position
+        move_list = self.legal_move(color)
 
-        i,j = position
-        move_list = self.legal_move(self, color, position)
-        if position in move_list :
-            self.grid[i][j].fill(pawn,i,j)
+        if position in move_list:
 
-        else :
+            self.grid[i][j].fill(pawn, i, j)
+            list_pawn = self._capture(color, i, j)            
+            list(map(flip, list_pawn))
+
+
+        else:
             raise ValueError(f"Illegal move at position {position}")
-        
+            
 
 
 
