@@ -98,7 +98,7 @@ class Board:
                   False = all adjacent squares are empty. 
         """ 
         
-        return any( [ not square.isempty() for square in self.grid[i][j].adjacent_squares])
+        return any( [ not square.empty_square() for square in self.grid[i][j].adjacent_squares])
 
 
     def _capture (self, color: int, i: int, j: int) -> list:
@@ -122,7 +122,7 @@ class Board:
             pawns_in_direction = []
             # While the position exists and the square contains a pawn  :
             while Board._position_is_ok(i+n*k, j+n*l) and not self.grid[i+n*k][j+n*l].empty_square() :
-                pawns_in_direction.append(self.grid[i+n*k][j+n*l].pawn)
+                pawns_in_direction.append(self.grid[i+n*k][j+n*l].content)
                 n = n + 1
             # Search the first pawn of the given color to know if we can flip some pawn
             colors = [pawn.color for pawn in pawns_in_direction]
