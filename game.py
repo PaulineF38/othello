@@ -15,7 +15,7 @@ class Game:
         """
         while not self.game_end():
             # if player 1 has some possible moves, starting its turn
-            if self.possible_moves[0]:
+            if not len(self.board.list_legal_moves(BLACK)) == 0:
                 # first, draw the board
                 self.board.draw_board()
 
@@ -30,7 +30,7 @@ class Game:
                     player1_move_coord = self.str_to_coord(self.player1.play())
 
             # if player 2 has some possible moves, starting its turn
-            if self.possible_moves[1]:
+            if not len(self.board.list_legal_moves(WHITE)) == 0:
                 # once the move is accepted and the changes on the board are done,
                 # we print the updated board
                 self.board.draw_board()
@@ -81,22 +81,22 @@ class Game:
     #     for i in list_to_flip:
     #         pawn.flip()
     
-    def possible_moves(self) -> tuple:
-        """checks whether there are possible moves for each player
+    # def possible_moves(self) -> tuple:
+    #     """checks whether there are possible moves for each player
 
-        Returns:
-            tuple: None, None if there are no possible moves anymore
-        """
-        # for each square of the board grid, check if there would be a legal
-        # move on this square and 
-        player1_possible_moves = None
-        player2_possible_moves = None
-        for square in board.grid:
-            if isinstance(board.legal_move(player1.color, square), list):
-                player1_possible_moves = board.legal_move(player1.color, square)
-            if isinstance(board.legal_move(player2.color, square), list):
-                player2_possible_moves = board.legal_move(player2.color, square)
-        return player1_possible_moves, player2_possible_moves
+    #     Returns:
+    #         tuple: None, None if there are no possible moves anymore
+    #     """
+    #     # for each square of the board grid, check if there would be a legal
+    #     # move on this square and 
+    #     player1_possible_moves = None
+    #     player2_possible_moves = None
+    #     for square in self.board.grid:
+    #         if isinstance(self.board.list_legal_moves(self.player1.color, square), list):
+    #             player1_possible_moves = self.board.list_legal_moves(self.player1.color, square)
+    #         if isinstance(self.board.list_legal_moves(self.player2.color, square), list):
+    #             player2_possible_moves = self.board.list_legal_moves(self.player2.color, square)
+    #     return player1_possible_moves, player2_possible_moves
 
     def game_end(self) -> bool:
         """checks whether the game should be ended, because no possible moves
@@ -104,7 +104,7 @@ class Game:
         Returns:
             bool: True if the game should be ended, False otherwise
         """
-        if self.possible_moves == (None, None):
+        if len(self.board.list_legal_moves(BLACK)) == 0 and len(self.board.list_legal_moves(WHITE)) == 0:
             return True
         else:
             return False
