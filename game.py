@@ -1,11 +1,12 @@
-# from board import Board
+from board import Board
 from player import Player
+from constants import BLACK, WHITE
 
 class Game:
 
     def __init__(self):
-        self.player1 = Player("black")
-        self.player2 = Player("white")
+        self.player1 = Player(BLACK)
+        self.player2 = Player(WHITE)
         self.board = Board()
     
     # NB: game_end, draw_board and MakeMove are not ready
