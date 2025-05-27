@@ -26,10 +26,10 @@ class Pawn:
         """_summary_
         the getter of the attribut color
         Args:
-            color (_type_): _description_
+            color (int): input 
 
         Raises:
-            ValueError: _description_
+            ValueError: color is not valid"
         """        
         if color in [WHITE, BLACK]:
             self._color = color
@@ -37,7 +37,7 @@ class Pawn:
             raise ValueError ("color is not valid")
         
     def flip(self) -> None :
-        """_summary_
+        """
         flip the pawn by the color
         """          
         if self.color==WHITE:

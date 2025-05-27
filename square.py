@@ -3,7 +3,7 @@ from pawn import Pawn
 
 class Square:
 
-    def __init__(self,adjacent_squares=[]): # initialise with the empty list of adjacent squares
+    def __init__(self,adjacent_squares=[]): 
         """_summary_
         init the empyty list and put the square in this list 
         content of square : None or Pawn
@@ -15,21 +15,21 @@ class Square:
 
 
     def empty_square(self):  
-        """_summary_
-        def of the empaty square
-        Returns:
-            _type_: _description_
+        """
+        def of the empty square
+
+        Returns: None
         """                    
         return self.content is None
         
     def fill_square(self,pawn): 
-        """_summary_
-
+        """
+        fill the square if is empty
         Args:
-            pawn (Pawn): _description_
+            pawn (Pawn): input
 
         Raises:
-            ValueError: _description_
+            ValueError: the square is already occuped
         """                 
         if self.empty_square():
             self.content=pawn
@@ -50,16 +50,15 @@ class Square:
         """_summary_
         add square in the list adjacent 
         Args:
-            square (_type_): _description_
+            square (Square): create by board
         """        
         self.adjacent_squares.append(square)
-        
+    
+
     def __repr__(self):
-        
         return f"Square(Square={self.content})"
     
     def __str__(self):
-            
         if self.empty_square() :
             return  "    "
         else:
