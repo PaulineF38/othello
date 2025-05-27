@@ -3,23 +3,36 @@ from pawn import Pawn
 
 class Square:
 
-    def __init__(self,x,y):
-        self.x=x
-        self.y=y
-        self.pawn=None                # par défaut on considère que la case est vide
-        list_adjacent=[]
-    
-    def empty_square(self):          # le cas si ma case est vide
-        if self.pawn is None:
-            return self.pawn
+    def __init__(self,adjacent_squares):
+        self.content=None                # par défaut on considère que la case est vide
+        self.adjacent_squares=[]
+
+
+    def empty_square(self):                 # le cas si ma case est vide
+        return self.content is None
         
-    def set_square(self,poins):              #pour poser : si elle est vide on pose le poins 
-        self.poins=poins
+    def fill_square(self,pawn): #pour poser : si elle est vide on pose le poins 
         if self.empty_square():
-            self.pawn=poins 
+            self.content=pawn
         else:
-            return f"the square is already occuped"
+            raise ValueError("the square is already occuped")
+    
+
+    @property                           
+    def adjacent_square(self):
+        return self._adjacent_square
+    
+    def add_adjacent(self,square): # add les squares dans la liste adjacents
+
+        self.adjacent_squares.append(square)
         
     def __repr__(self):
-        return f"Square(Square={self.pawn})"
+        return f"Square(Square={self.content})"
+    
+
+    def __str__(self):
+        if self.empty_square():
+            return self.content
+        else:
+            return "    "
     
