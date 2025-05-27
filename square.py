@@ -42,9 +42,8 @@ class Square:
         return self._adjacent_squares
     
     @adjacent_squares.setter
-
     def adjacent_squares(self,adjacent_squares : list)->list:
-        adjacent_squares=adjacent_squares
+        self._adjacent_squares=adjacent_squares
 
     
     def add_adjacent(self,square): # possibility to add the squares in the liste 

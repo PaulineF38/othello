@@ -22,7 +22,6 @@ class Pawn:
         return self._color
     
     @color.setter
-    
     def color(self, color):
         """_summary_
         the getter of the attribut color
