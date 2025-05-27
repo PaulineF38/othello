@@ -3,15 +3,18 @@ from pawn import Pawn
 
 class Square:
 
-    def __init__(self,adjacent_squares):
-        self.content=None                # par défaut on considère que la case est vide
-        self.adjacent_squares=[]
+    """this class takes an empyty list and content of thes square
+    """
+    def __init__(self,adjacent_squares=[]): # initialise with the empty list of adjacent squares
+
+        self.content=None                        
+        self.adjacent_squares=adjacent_squares  
 
 
-    def empty_square(self):                 # le cas si ma case est vide
+    def empty_square(self):                 # the function of empty square
         return self.content is None
         
-    def fill_square(self,pawn): #pour poser : si elle est vide on pose le poins 
+    def fill_square(self,pawn):          #if the square is empty we fill it with pawn
         if self.empty_square():
             self.content=pawn
         else:
@@ -19,10 +22,16 @@ class Square:
     
 
     @property                           
-    def adjacent_square(self):
-        return self._adjacent_square
+    def adjacent_squares(self):
+        return self._adjacent_squares
     
-    def add_adjacent(self,square): # add les squares dans la liste adjacents
+    @adjacent_squares.setter
+
+    def adjacent_squares(self,adjacent_squares):
+        self._adjacent_squares=adjacent_squares
+
+    
+    def add_adjacent(self,square): # possibility to add the squares in the liste 
 
         self.adjacent_squares.append(square)
         
@@ -32,7 +41,7 @@ class Square:
 
     def __str__(self):
         if self.empty_square():
-            return self.content
+            return  "    "
         else:
-            return "    "
+            return self.content
     
