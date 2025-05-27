@@ -3,7 +3,7 @@
 #
 # Author : Xavier BEDNAREK
 
-import Game
+from game import Game
 
 # Create a game ...
 game = Game()
