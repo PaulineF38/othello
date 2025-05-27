@@ -3,8 +3,7 @@ import constants
 
 class Board:
     def __init__(self,grid):
-        self._grid = grid
-        self.grid = [
+        self._grid = [
             [Square() for _ in range(8)]
             for _ in range(8)
         ]
@@ -14,10 +13,10 @@ class Board:
                 Square.list_voisin = i,j # a changer avec le nom de que Nouhaila donnera!
 
 
-        self.grid[3][3].pawn.color = constants.WHITE
-        self.grid[3][4].pawn.color = constants.BLACK
-        self.grid[4][3].pawn.color = constants.BLACK
-        self.grid[4][4].pawn.color = constants.WHITE
+        self._grid[3][3].pawn.color = constants.WHITE
+        self._grid[3][4].pawn.color = constants.BLACK
+        self._grid[4][3].pawn.color = constants.BLACK
+        self._grid[4][4].pawn.color = constants.WHITE
 
 
     
@@ -36,7 +35,7 @@ class Board:
         for i in range (7):
             display += "+----"
         display += "+\n"
-        for i, row in enumerate(self.grid):
+        for i, row in enumerate(self._grid):
             display += f"{i+1}"
             
             for square in row:
@@ -55,13 +54,26 @@ class Board:
         return display            
         
 
-    def score() -> dict:
+    def score(self) -> dict:
         """Calculate the score of each player.
 
         Returns:
             dict: {white : score (int), black : score (int)}
-        """        
-        pass
+        """  
+        dict_score = {}
+        white_score = 0
+        black_score = 0
+        for i, row in enumerate(self._grid):
+            for square in row:
+                if square.pawn.color == constants.WHITE :
+                    white_score += 1
+                elif square.pawn.color == constants.BLACK:
+                    black_score += 1
+        dict_score["White :"] = white_score
+        dict_score["Black :"] = black_score
+        return dict_score
+
+        
 
     def get_square(position : tuple) -> Square:
         """
