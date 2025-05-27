@@ -10,6 +10,8 @@ class Game:
 
     # NB: game_end, draw_board and MakeMove are not ready
     def run(self):
+        """Run the game
+        """
         while not self.game_end():
             # first, draw the board
             self.board.draw_board()
@@ -74,7 +76,12 @@ class Game:
     #     for i in list_to_flip:
     #         pawn.flip()
     
-    def possible_moves(self):
+    def possible_moves(self) -> tuple:
+        """checks whether there are possible moves for each player
+
+        Returns:
+            tuple: None, None if there are no possible moves anymore
+        """
         # for each square of the board grid, check if there would be a legal
         # move on this square and 
         player1_possible_moves = None
@@ -86,7 +93,12 @@ class Game:
                 player2_possible_moves = board.legal_move(player2.color, square)
         return player1_possible_moves, player2_possible_moves
 
-    def game_end(self):
+    def game_end(self) -> bool:
+        """checks whether the game should be ended, because no possible moves
+
+        Returns:
+            bool: True if the game should be ended, False otherwise
+        """
         if self.possible_moves == (None, None):
             return True
         else:
