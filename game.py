@@ -7,7 +7,7 @@ class Game:
         self.player1 = Player("black")
         self.player2 = Player("white")
         self.board = Board()
-
+    
     # NB: game_end, draw_board and MakeMove are not ready
     def run(self):
         """Run the game
@@ -22,7 +22,7 @@ class Game:
             player1_move_coord = self.str_to_coord(self.player1.play())
 
             # while makemove is false (i.e., illegal move), asks again the player
-            while (not self.board.makeMove(self.player1.color, player1_move_coord)):
+            while (not self.board.make_move(self.player1.color, player1_move_coord)):
                 print('Invalid move. Try again!')
                 player1_move_coord = self.str_to_coord(self.player1.play())
 
@@ -36,7 +36,7 @@ class Game:
             player2_move_coord = self.str_to_coord(self.player2.play())
 
             # while makemove is false (i.e., illegal move), asks again the player
-            while (not self.board.makeMove(self.player1.color, player2_move_coord)):
+            while (not self.board.make_move(self.player1.color, player2_move_coord)):
                 print('Invalid move. Try again!')
                 player2_move_coord = self.str_to_coord(self.player2.play())
 
@@ -68,7 +68,7 @@ class Game:
             "G": 6,
             "H": 7
         }
-        return dict_convert[move_letter], move_int
+        return move_int, dict_convert[move_letter]
 
     # maybe this function should be in the Board class
     # def flip_list(list_to_flip):
