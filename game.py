@@ -1,6 +1,7 @@
 from board import Board
 from player import Player
 from constants import BLACK, WHITE
+import re
 
 class Game:
 
@@ -22,13 +23,13 @@ class Game:
 
                 # then, start the player 1 turn 
                 # we ask player 1 to choose a move
-                player1_move_coord = self.str_to_coord(self.player1.play("Your move: "))
+                player1_move_str = self.player1.play("Your move: ").lower()
 
                 # while makemove is false (i.e., illegal move), asks again the player
-                while (not self.board.make_move(self.player1.color, player1_move_coord)):
+                while (not self.check_move_regex(player1_move_str) or not self.board.make_move(self.player1.color, self.str_to_coord(player1_move_str))):
                     print('Invalid move. Try again!')
-                    player1_move_coord = self.str_to_coord(self.player1.play("Your move: "))
-
+                    player1_move_str = self.player1.play("Your move: ").lower()
+                    
             # if player 2 has some possible moves, starting its turn
             if not len(self.board.list_legal_moves(WHITE)) == 0:
                 # once the move is accepted and the changes on the board are done,
@@ -38,12 +39,12 @@ class Game:
 
                 # then, start the player 2 turn
                 # we ask player 2 to choose a move
-                player2_move_coord = self.str_to_coord(self.player2.play("Your move: "))
+                player2_move_str = self.player2.play("Your move: ").lower()
 
                 # while makemove is false (i.e., illegal move), asks again the player
-                while (not self.board.make_move(self.player2.color, player2_move_coord)):
+                while (not self.check_move_regex(player2_move_str) or not self.board.make_move(self.player2.color, self.str_to_coord(player2_move_str))):
                     print('Invalid move. Try again!')
-                    player2_move_coord = self.str_to_coord(self.player2.play("Your move: "))
+                    player2_move_str = self.player2.play("Your move: ").lower()
 
             # end of the turn, we loop back (if the game_end is not true)
         # if game_end is true, we print the scores
@@ -64,16 +65,28 @@ class Game:
         move_letter = move_str[0:1]
         move_int = int(move_str[1:2]) - 1
         dict_convert = {
-            "A": 0,
-            "B": 1,
-            "C": 2,
-            "D": 3,
-            "E": 4,
-            "F": 5,
-            "G": 6,
-            "H": 7
+            "a": 0,
+            "b": 1,
+            "c": 2,
+            "d": 3,
+            "e": 4,
+            "f": 5,
+            "g": 6,
+            "h": 7
         }
         return move_int, dict_convert[move_letter]
+    
+    @staticmethod
+    def check_move_regex(move_str: str) -> bool:
+        """checks if the move is a valid coordinate (a-h and 1-8)
+
+        Args:
+            move_str (str): the string of the user input
+
+        Returns:
+            bool: True if valid, False otherwise
+        """
+        return re.match(r"^[a-h][1-8]$", move_str)
 
     # maybe this function should be in the Board class
     # def flip_list(list_to_flip):
