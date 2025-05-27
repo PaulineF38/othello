@@ -13,32 +13,36 @@ class Game:
         """Run the game
         """
         while not self.game_end():
-            # first, draw the board
-            self.board.draw_board()
+            # if player 1 has some possible moves, starting its turn
+            if self.possible_moves[0]:
+                # first, draw the board
+                self.board.draw_board()
 
-            # then, start the player 1 turn 
-            print("---- Player 1 (black) turn ----")
-            # we ask player 1 to choose a move
-            player1_move_coord = self.str_to_coord(self.player1.play())
-
-            # while makemove is false (i.e., illegal move), asks again the player
-            while (not self.board.make_move(self.player1.color, player1_move_coord)):
-                print('Invalid move. Try again!')
+                # then, start the player 1 turn 
+                print("---- Player 1 (black) turn ----")
+                # we ask player 1 to choose a move
                 player1_move_coord = self.str_to_coord(self.player1.play())
 
-            # once the move is accepted and the changes on the board are done,
-            # we print the updated board
-            self.board.draw_board()
+                # while makemove is false (i.e., illegal move), asks again the player
+                while (not self.board.make_move(self.player1.color, player1_move_coord)):
+                    print('Invalid move. Try again!')
+                    player1_move_coord = self.str_to_coord(self.player1.play())
 
-            # then, start the player 2 turn
-            print("---- Player 2 (white) turn ----")
-            # we ask player 1 to choose a move
-            player2_move_coord = self.str_to_coord(self.player2.play())
+            # if player 2 has some possible moves, starting its turn
+            if self.possible_moves[1]:
+                # once the move is accepted and the changes on the board are done,
+                # we print the updated board
+                self.board.draw_board()
 
-            # while makemove is false (i.e., illegal move), asks again the player
-            while (not self.board.make_move(self.player1.color, player2_move_coord)):
-                print('Invalid move. Try again!')
+                # then, start the player 2 turn
+                print("---- Player 2 (white) turn ----")
+                # we ask player 1 to choose a move
                 player2_move_coord = self.str_to_coord(self.player2.play())
+
+                # while makemove is false (i.e., illegal move), asks again the player
+                while (not self.board.make_move(self.player1.color, player2_move_coord)):
+                    print('Invalid move. Try again!')
+                    player2_move_coord = self.str_to_coord(self.player2.play())
 
             # end of the turn, we loop back (if the game_end is not true)
         # if game_end is true, we print the scores
