@@ -166,7 +166,7 @@ class Board:
 
 
 
-    def move(self, color, position : tuple, panw):
+    def move(self, color, position : tuple, pawn):
         """ Return the board with the new pawn if move is possible
 
         Args:
@@ -179,6 +179,9 @@ class Board:
         if position in move_list :
             self.grid[i][j].fill(pawn,i,j)
 
+        else :
+            raise ValueError(f"Illegal move at position {position}")
+        
 
 
 
