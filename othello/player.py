@@ -140,11 +140,11 @@ class Player() :
             print(f"{mode+1} : {LIST_MODE_DESCR[mode]} -")
 
         answer = ""
-        while not answer.isdigit() or int(answer) in LIST_MODE :
+        while not answer.isdigit() or (int(answer)-1) not in LIST_MODE :
             try :
                 answer = input(f"Your choice ? (Number between 1 and {len(LIST_MODE)})")
             except KeyboardInterrupt :
                 print("Choose something else !")
         
-        return int(answer)
+        return int(answer)-1
     
