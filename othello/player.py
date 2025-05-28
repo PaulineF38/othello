@@ -58,21 +58,3 @@ class Player() :
     @name.deleter
     def name(self) -> None:
         raise Exception("You are not able to delete the property : name !")
-
-    # --------------------------------------------------------------------------
-    #                                                                    Methods
-    # --------------------------------------------------------------------------
-
-    def play(self, info: str) -> str:
-        """Display something to the player and ask him what to do
-
-        !!!! THIS METHOD MUST BE OVERRIDEN IN THE SUBCLASSES !!!!
-
-        Args:
-            info (str): info to display to the player
-
-        Returns:
-            str: input given by the user
-        """
-        raise NotImplementedError("THIS METHOD MUST BE OVERRIDEN IN THE SUBCLASSES")
-    

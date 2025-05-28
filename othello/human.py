@@ -41,7 +41,6 @@ class Human(Player) :
         """
         return input("Choose a name : ")
 
-    # This is an override :
     def play(self, info: str) -> str:
         """Display something to the player and ask him what to do
 

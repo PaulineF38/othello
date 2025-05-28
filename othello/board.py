@@ -153,6 +153,20 @@ class Board:
             # Complete the list of flippable pawns
             pawns += pawns_in_direction[:idx] 
         return pawns
+    
+    def number_of_capture(self, color: int, i: int, j: int) -> int:
+        """
+        Count the pawns that should be flipped if any when adding a new pawn at the square.
+
+        Args:
+            color (int) : The color of the pawn (BLACK or WHITE).
+            i (int)     : 1st coordinate of the square (row) where the new pawn try to be put on.
+            j (int)     : 2nd coordinates of the square (column) where the new pawn try to be put on.
+            
+        Returns:
+            int: number of pawn to flip (if any)
+        """     
+        return len(self._capture(color, i, j))
 
     def _position_is_ok(self, i: int,j: int) -> bool:
         """ Check if the given position (i, j) is allowed in an othello board
