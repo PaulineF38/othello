@@ -30,10 +30,6 @@ class Game:
                 player_1_quit = (player1_move_str == QUIT_STR.lower())
 
                 # while makemove is false (i.e., illegal move), asks again the player
-                #while (not player_1_quit and (not self.check_move_regex(player1_move_str) or not self.board.make_move(self.player1.color, self.str_to_coord(player1_move_str)))):
-                 #   print('Invalid move. Try again!')
-                  #  player1_move_str = self.player1.play("Your move (give a coordinate (ex: C2) or Quit): ").lower()
-                   # player_1_quit = (player1_move_str == QUIT_STR.lower())
 
                 while (not player_1_quit ):
                     if not self.check_move_regex(player1_move_str):
@@ -77,10 +73,6 @@ class Game:
 
 
                 # while makemove is false (i.e., illegal move), asks again the player
-                #while (not player_2_quit and (not self.check_move_regex(player2_move_str) or not self.board.make_move(self.player2.color, self.str_to_coord(player2_move_str)))):
-                 #   print('Invalid move. Try again!')
-                  #  player2_move_str = self.player2.play("Your move (give a coordinate (ex: C2) or Quit): ").lower()
-                   # player_2_quit =  (player2_move_str == QUIT_STR.lower())
                 while (not player_2_quit ):
                     if not self.check_move_regex(player2_move_str):
                         print("Invalid move: enter a valid on-board coordinate like 'C4' or 'c4'.")
@@ -160,7 +152,7 @@ class Game:
         }
         return move_int, dict_convert[move_letter]
     
-<<<<<<< HEAD
+
     def coord_to_str(i, j):
         letter = chr(ord('a') + j).upper()
         number = i + 1 
@@ -172,9 +164,7 @@ class Game:
         move_str = player.play("Your move (give a coordinate (ex: C2) or Quit): ").lower()
         return move_str
 
-        
-    # @staticmethod
-=======
+
     @staticmethod
     def ask_rows() -> str:
         """ask number of rows to players
@@ -221,7 +211,7 @@ class Game:
                 n_cols = Game.ask_cols()
         return n_rows, n_cols
 
->>>>>>> dev
+
     def check_move_regex(self, move_str: str) -> bool:
         """checks if the move is a valid coordinate (a-h and 1-8)
 
