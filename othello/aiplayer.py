@@ -1,5 +1,4 @@
 from .player import Player
-from .board import Board
 
 class AIPlayer(Player) : 
     """ 
@@ -19,21 +18,4 @@ class AIPlayer(Player) :
         """
         # Calling superclass constructor
         super().__init__(color, name)
-
-    # --------------------------------------------------------------------------
-    #                                                                    Methods
-    # --------------------------------------------------------------------------
-
-    def play(self, board:Board) -> str:
-        """Return the AI's move based on the given board
-
-        !!!! THIS METHOD MUST BE OVERRIDEN IN THE SUBCLASSES !!!!
-
-        Args:
-            board (Board): the state of the game used to decide what to do
-
-        Returns:
-            str: move to do (ex: "C2" or QUIT_STR to rage quit ...)
-        """
-        raise NotImplementedError("THIS METHOD MUST BE OVERRIDEN IN THE SUBCLASSES")
     

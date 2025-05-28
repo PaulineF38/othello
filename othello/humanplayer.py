@@ -1,5 +1,6 @@
 from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
 from .player import Player
+from .board import Board
 
 class HumanPlayer(Player) : 
     """ 
@@ -41,17 +42,19 @@ class HumanPlayer(Player) :
         """
         return input("Choose a name : ")
 
-    def play(self, info: str) -> str:
+    # This is an override
+    def play(self, prompt:str, board:Board) -> str:
         """Display something to the player and ask him what to do
 
         Args:
-            info (str): info to display to the player
+            prompt (str): info to display to the player
+            board (Board): the state of the game used to decide what to do ---> NOT USED HERE
 
         Returns:
             str: input given by the user
         """
         try :
-            answer = input(info)
+            answer = input(prompt)
         except KeyboardInterrupt :
             answer = QUIT_STR
         return answer

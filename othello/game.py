@@ -2,6 +2,7 @@ from .board import Board
 from .humanplayer import HumanPlayer
 from .player import Player
 from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
+from .aiplayermax import AIPlayerMax
 import re
 
 class Game:
@@ -171,7 +172,7 @@ class Game:
     def prompt_player(self, player):
         converted = [Game.coord_to_str(*coords) for coords in self.board.list_legal_moves(player.color)]
         print(f"possible moves : {converted}")
-        move_str = player.play("Your move (give a coordinate (ex: C2) or Quit): ").lower()
+        move_str = player.play("Your move (give a coordinate (ex: C2) or Quit): ", self.board).lower()
         return move_str
 
     def check_move_regex(self, move_str: str) -> bool:

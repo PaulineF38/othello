@@ -1,4 +1,5 @@
 from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR, MIN_ROWS, MIN_COLS, MAX_ROWS, MAX_COLS
+from .board import Board
 
 class Player() : 
     """ 
@@ -61,6 +62,24 @@ class Player() :
 
     # --------------------------------------------------------------------------
     #                                                                    Methods
+    # --------------------------------------------------------------------------
+
+    def play(self, prompt:str, board:Board) -> str:
+        """Return the AI's move based on the given board
+
+        !!!! THIS METHOD MUST BE OVERRIDEN IN THE SUBCLASSES !!!!
+
+        Args:
+            prompt (str): info to display to the player
+            board (Board): the state of the game used to decide what to do
+
+        Returns:
+            str: move to do (ex: "C2" or QUIT_STR to rage quit ...)
+        """
+        raise NotImplementedError("THIS METHOD MUST BE OVERRIDEN IN THE SUBCLASSES")
+
+    # --------------------------------------------------------------------------
+    #                                                             Static Methods
     # --------------------------------------------------------------------------
     
     @staticmethod
