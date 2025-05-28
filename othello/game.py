@@ -31,8 +31,10 @@ class Game:
                 player_1_quit = (player1_move_str == QUIT_STR.lower())
 
                 # while makemove is false (i.e., illegal move), asks again the player
+                #add precise message why move is invalide
 
                 while (not player_1_quit ):
+                    # Check if the coordinate given are on board
                     if not self.check_move_regex(player1_move_str):
                         print("Invalid move: enter a valid on-board coordinate like 'C4' or 'c4'.")
                         player1_move_str = self.prompt_player(self.player1)
@@ -40,16 +42,19 @@ class Game:
 
                     else:
                         i, j = self.str_to_coord(player1_move_str)
+                        # Invalide move = player is trying to put a pawn in not empty square
                         if not self.board.grid[i][j].empty_square():
                             print("Invalid move: the square is already occupied.")
                             player1_move_str = self.prompt_player(self.player1)
                             player_1_quit = (player1_move_str == QUIT_STR.lower())
 
+                        # Invalide move = No pawn around
                         elif not self.board._adjacent(i, j):
                             print("Invalid move: the square is not adjacent to any opponent pawn.")
                             player1_move_str = self.prompt_player(self.player1)
                             player_1_quit = (player1_move_str == QUIT_STR.lower())
 
+                        # invalide move = no pawn capture
                         elif len(self.board._capture(self.player1.color, i, j)) == 0:
                             print("Invalid move: no opponent pawn can be captured from this position.")
                             player1_move_str = self.prompt_player(self.player1)
@@ -75,20 +80,24 @@ class Game:
 
                 # while makemove is false (i.e., illegal move), asks again the player
                 while (not player_2_quit ):
+                    # Check if the coordinate given are on board
                     if not self.check_move_regex(player2_move_str):
                         print("Invalid move: enter a valid on-board coordinate like 'C4' or 'c4'.")
                         player2_move_str = self.prompt_player(self.player2)
                         player_2_quit = (player2_move_str == QUIT_STR.lower())
                     else:
                         i, j = self.str_to_coord(player2_move_str)
+                        # Invalide move = player is trying to put a pawn in not empty square
                         if not self.board.grid[i][j].empty_square():
                             print("Invalid move: the square is already occupied.")
                             player2_move_str = self.prompt_player(self.player2)
                             player_2_quit = (player2_move_str == QUIT_STR.lower())
+                         # Invalide move = No pawn around
                         elif not self.board._adjacent(i, j):
                             print("Invalid move: the square is not adjacent to any opponent pawn.")
                             player2_move_str = self.prompt_player(self.player2)
                             player_2_quit = (player2_move_str == QUIT_STR.lower())
+                        # invalide move = no pawn capture
                         elif len(self.board._capture(self.player2.color, i, j)) == 0:
                             print("Invalid move: no opponent pawn can be captured from this position.")
                             player2_move_str = self.prompt_player(self.player2)
@@ -153,6 +162,7 @@ class Game:
         }
         return move_int, dict_convert[move_letter]
     
+    @staticmethod
     def coord_to_str(i, j):
         letter = chr(ord('a') + j).upper()
         number = i + 1 
