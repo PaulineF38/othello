@@ -1,13 +1,13 @@
 from .board import Board
-from .player import Player
+from .human import Human
 from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
 import re
 
 class Game:
 
     def __init__(self):
-        self.player1 = Player(BLACK)
-        self.player2 = Player(WHITE)
+        self.player1 = Human(BLACK)
+        self.player2 = Human(WHITE)
         self.board = Board(*(self.ask_board()))
     
     def run(self):

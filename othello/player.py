@@ -9,26 +9,19 @@ class Player() :
     #                                                                Constructor
     # --------------------------------------------------------------------------
 
-    def __init__(self, color: int) -> None:
-        """Init a Player by asking its name to the user
+    def __init__(self, color: int, name: str) -> None:
+        """Init a Player
 
         Args:
-            color (int): _description_
+            color (int): Color of the pawns of the player
+            name (str) : Name of the Player
         """
         # Set color :
         if color not in [BLACK, WHITE]:
             raise TypeError(f"Color must be either color={BLACK} ({BLACK_STR}) or color={WHITE} ({WHITE_STR}) !")
         self._color = color
         # Set name :
-        self.name = Player.ask_name()
-        # Display welcome message
-        print("Welcome " + self.name + " !", end=" ")
-        if self.color == BLACK :
-            print("You play black pawns : " + BLACK_STR +" !", end=" ")
-        if self.color == WHITE :
-            print("You play white pawns : " + WHITE_STR +" !", end=" ")
-        print("Good luck !")
-        print("")
+        self.name = name
 
     # --------------------------------------------------------------------------
     #                                                                 Properties
@@ -70,18 +63,10 @@ class Player() :
     #                                                                    Methods
     # --------------------------------------------------------------------------
 
-    @staticmethod
-    def ask_name() -> str:
-        """Ask the user to give his name
-
-
-        Returns:
-            str: name chosen by the player
-        """
-        return input("Choose a name : ")
-
     def play(self, info: str) -> str:
         """Display something to the player and ask him what to do
+
+        !!!! THIS METHOD MUST BE OVERRIDEN IN THE SUBCLASSES !!!!
 
         Args:
             info (str): info to display to the player
@@ -89,9 +74,5 @@ class Player() :
         Returns:
             str: input given by the user
         """
-        try :
-            answer = input(info)
-        except KeyboardInterrupt :
-            answer = QUIT_STR
-        return answer
+        raise NotImplementedError("THIS METHOD MUST BE OVERRIDEN IN THE SUBCLASSES")
     
