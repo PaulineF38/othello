@@ -101,7 +101,7 @@ class Board:
             for square in row:
                 # If the square is not empty, check the color of the pawn and increment player's score
                 if not square.empty_square() :
-                    if square.content.color == WHITE :
+                    if square.content.color == WHITE:
                         dict_score["White "] += 1
                     elif square.content.color == BLACK:
                         dict_score["Black "] += 1
