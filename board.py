@@ -64,15 +64,15 @@ class Board:
             str: board of the game that is send to Game.
         """    
         # First raw of the board
-        display = "    " + "    ".join([ chr(ord("A")+i) for i in range(0, len(self._grid[0])) ] ) +"\n"
-        display += " +----"
+        display = "".rjust(3+len(str(len(self.grid)))) + "    ".join([ chr(ord("A")+i) for i in range(0, len(self._grid[0])) ] ) +"\n"
+        display += "+----".rjust(5+len(str(len(self.grid))))
         #add first line of +---- +
         for i in range (len(self._grid[0])-1):
             display += "+----"
         display += "+\n"
         for i, row in enumerate(self._grid):
-            # print nulber of rows
-            display += f"{i+1}"
+            # print number of rows
+            display += f"{i+1}".rjust(len(str(len(self.grid))))
             
             for square in row:
                 display += "|"
@@ -80,7 +80,7 @@ class Board:
                 display += str(square)
             # close the last line of the board with +----+
             display += '|\n'
-            display += " +----"
+            display += "+----".rjust(5+len(str(len(self.grid))))
             for i in range (len(self._grid[0])-1):
                 display += "+----"
             display += "+\n"
