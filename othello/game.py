@@ -1,6 +1,7 @@
 from .board import Board
 from .humanplayer import HumanPlayer
 from .player import Player
+from .airandom import AIRandom
 from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR, MODE_HVSH, MODE_HVSM, MODE_HVSR, MODE_RVSM
 from .aiplayermax import AIPlayerMax
 import re
