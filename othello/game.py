@@ -1,14 +1,15 @@
 from .board import Board
 from .human import Human
+from .player import Player
 from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
 import re
 
 class Game:
 
     def __init__(self):
+        self.board = Board(*(Player.ask_board()))
         self.player1 = Human(BLACK)
         self.player2 = Human(WHITE)
-        self.board = Board()
     
     def run(self):
         """Run the game
@@ -26,15 +27,39 @@ class Game:
 
                 # then, start the player 1 turn 
                 # we ask player 1 to choose a move
-                player1_move_str = self.player1.play("Your move (give a coordinate (ex: C2) or Quit): ").lower()
+                player1_move_str = self.prompt_player(self.player1)
                 player_1_quit = (player1_move_str == QUIT_STR.lower())
 
                 # while makemove is false (i.e., illegal move), asks again the player
-                while (not player_1_quit and (not self.check_move_regex(player1_move_str) or not self.board.make_move(self.player1.color, self.str_to_coord(player1_move_str)))):
-                    print('Invalid move. Try again!')
-                    player1_move_str = self.player1.play("Your move (give a coordinate (ex: C2) or Quit): ").lower()
-                    player_1_quit = (player1_move_str == QUIT_STR.lower())
-                    
+
+                while (not player_1_quit ):
+                    if not self.check_move_regex(player1_move_str):
+                        print("Invalid move: enter a valid on-board coordinate like 'C4' or 'c4'.")
+                        player1_move_str = self.prompt_player(self.player1)
+                        player_1_quit = (player1_move_str == QUIT_STR.lower())
+
+                    else:
+                        i, j = self.str_to_coord(player1_move_str)
+                        if not self.board.grid[i][j].empty_square():
+                            print("Invalid move: the square is already occupied.")
+                            player1_move_str = self.prompt_player(self.player1)
+                            player_1_quit = (player1_move_str == QUIT_STR.lower())
+
+                        elif not self.board._adjacent(i, j):
+                            print("Invalid move: the square is not adjacent to any opponent pawn.")
+                            player1_move_str = self.prompt_player(self.player1)
+                            player_1_quit = (player1_move_str == QUIT_STR.lower())
+
+                        elif len(self.board._capture(self.player1.color, i, j)) == 0:
+                            print("Invalid move: no opponent pawn can be captured from this position.")
+                            player1_move_str = self.prompt_player(self.player1)
+                            player_1_quit = (player1_move_str == QUIT_STR.lower())
+
+                        else:
+                            # Valid move, break out of loop
+                            self.board.make_move(self.player1.color, (i, j))
+                            break
+                        
             # if player 2 has some possible moves, starting its turn
             if not player_1_quit and not len(self.board.list_legal_moves(WHITE)) == 0:
                 # once the move is accepted and the changes on the board are done,
@@ -44,14 +69,34 @@ class Game:
 
                 # then, start the player 2 turn
                 # we ask player 2 to choose a move
-                player2_move_str = self.player2.play("Your move (give a coordinate (ex: C2) or Quit): ").lower()
+                player2_move_str = self.prompt_player(self.player2)
                 player_2_quit = (player2_move_str == QUIT_STR.lower())
 
+
                 # while makemove is false (i.e., illegal move), asks again the player
-                while (not player_2_quit and (not self.check_move_regex(player2_move_str) or not self.board.make_move(self.player2.color, self.str_to_coord(player2_move_str)))):
-                    print('Invalid move. Try again!')
-                    player2_move_str = self.player2.play("Your move (give a coordinate (ex: C2) or Quit): ").lower()
-                    player_2_quit =  (player2_move_str == QUIT_STR.lower())
+                while (not player_2_quit ):
+                    if not self.check_move_regex(player2_move_str):
+                        print("Invalid move: enter a valid on-board coordinate like 'C4' or 'c4'.")
+                        player2_move_str = self.prompt_player(self.player2)
+                        player_2_quit = (player2_move_str == QUIT_STR.lower())
+                    else:
+                        i, j = self.str_to_coord(player2_move_str)
+                        if not self.board.grid[i][j].empty_square():
+                            print("Invalid move: the square is already occupied.")
+                            player2_move_str = self.prompt_player(self.player2)
+                            player_2_quit = (player2_move_str == QUIT_STR.lower())
+                        elif not self.board._adjacent(i, j):
+                            print("Invalid move: the square is not adjacent to any opponent pawn.")
+                            player2_move_str = self.prompt_player(self.player2)
+                            player_2_quit = (player2_move_str == QUIT_STR.lower())
+                        elif len(self.board._capture(self.player2.color, i, j)) == 0:
+                            print("Invalid move: no opponent pawn can be captured from this position.")
+                            player2_move_str = self.prompt_player(self.player2)
+                            player_2_quit = (player2_move_str == QUIT_STR.lower())
+                        else:
+                            # Valid move, break out of loop
+                            self.board.make_move(self.player2.color, (i, j))
+                            break
 
             # end of the turn, we loop back (if the game_end is not true)
         # if game_end is true, we print the final board and scores
@@ -108,7 +153,17 @@ class Game:
         }
         return move_int, dict_convert[move_letter]
     
-    # @staticmethod
+    def coord_to_str(i, j):
+        letter = chr(ord('a') + j).upper()
+        number = i + 1 
+        return f"{letter}{number}"
+    
+    def prompt_player(self, player):
+        converted = [Game.coord_to_str(*coords) for coords in self.board.list_legal_moves(player.color)]
+        print(f"possible moves : {converted}")
+        move_str = player.play("Your move (give a coordinate (ex: C2) or Quit): ").lower()
+        return move_str
+
     def check_move_regex(self, move_str: str) -> bool:
         """checks if the move is a valid coordinate (a-h and 1-8)
 
