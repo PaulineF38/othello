@@ -17,7 +17,7 @@ class HumanPlayer(Player) :
             color (int): Color of the pawns of the player
         """
         # Calling superclass constructor
-        super().__init__(color, Human.ask_name()) 
+        super().__init__(color, HumanPlayer.ask_name()) 
         # Display welcome message
         print("Welcome " + self.name + " !", end=" ")
         if self.color == BLACK :
