@@ -62,35 +62,22 @@ class Player() :
     # --------------------------------------------------------------------------
     #                                                                    Methods
     # --------------------------------------------------------------------------
-
-    def play(self, info: str) -> str:
-        """Display something to the player and ask him what to do
-
-        !!!! THIS METHOD MUST BE OVERRIDEN IN THE SUBCLASSES !!!!
-
-        Args:
-            info (str): info to display to the player
-
-        Returns:
-            str: input given by the user
-        """
-        raise NotImplementedError("THIS METHOD MUST BE OVERRIDEN IN THE SUBCLASSES")
     
     @staticmethod
-    def ask_rows() -> str:
+    def ask_rows() -> int:
         """ask number of rows to players
 
         Returns:
-            str: number of rows
+            int: number of rows
         """
         return int(input("Number of rows: "))
     
     @staticmethod
-    def ask_cols() -> str:
+    def ask_cols() -> int:
         """ask number of cols to players
 
         Returns:
-            str: number of cols
+            int: number of cols
         """
         return int(input("Number of cols: "))
 
