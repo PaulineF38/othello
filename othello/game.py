@@ -120,6 +120,10 @@ class Game:
         print(" ---      Score      ---")
         print(f"{self.player1.name} (player 1 : {BLACK_STR}) score: ", self.board.score()["Black "])
         print(f"{self.player2.name} (player 2 : {WHITE_STR}) score: ", self.board.score()["White "])
+        print(" ---      Winner      ---")
+        print(self.winner())
+
+
 
     @staticmethod
     def str_to_coord(move_str: str) -> tuple:
@@ -164,14 +168,33 @@ class Game:
         return move_int, dict_convert[move_letter]
     
     @staticmethod
-    def coord_to_str(i, j):
+    def coord_to_str(i, j) -> str:
+        """Converte 1,1 to B1
+
+        Args:
+            i (int): number of the row
+            j (int): number of the column
+
+        Returns:
+            str: string of the convert coordinate
+        """     
+        # use chr to convert a b c ... in number   
         letter = chr(ord('a') + j).upper()
         number = i + 1 
         return f"{letter}{number}"
     
-    def prompt_player(self, player):
+    def prompt_player(self, player: Player)-> str:
+        """Displays the possible moves for the given player and prompts for their input.
+
+        Args:
+            player (Player):  The player object
+        Returns:
+            str: The string entered by the player, converted to lowercase
+        """      
+        # Creat the liste of the possible move with convert coordinates (i.e. B1 ans not 1,1)  
         converted = [Game.coord_to_str(*coords) for coords in self.board.list_legal_moves(player.color)]
         print(f"possible moves : {converted}")
+        # Ask the player for their move input
         move_str = player.play("Your move (give a coordinate (ex: C2) or Quit): ", self.board).lower()
         return move_str
 
@@ -204,3 +227,18 @@ class Game:
             return True
         else:
             return False
+
+    def winner(self) -> str:
+        """checks who is the winner
+
+        Returns:
+            the name of player
+        """
+        if self.board.score()["Black "] > self.board.score()["White "]:
+            return f"Congradulation !! you are THE WINNER {self.player1.name}\nBOOOOOOOOH!! you are THE LOSER {self.player2.name}"
+        elif self.board.score()["Black "] == self.board.score()["White "]:
+            return f"Both are equal"
+        else:
+            return f"Congradulation !! you are THE WINNER {self.player2.name}\nBOOOOOOOOH!! you are THE LOSER {self.player1.name}"
+        
+        
