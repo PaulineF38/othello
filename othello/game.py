@@ -1,7 +1,7 @@
 from .board import Board
 from .humanplayer import HumanPlayer
 from .player import Player
-from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
+from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR, MODE_HVSH, MODE_HVSM, MODE_HVSR, MODE_RVSM
 from .aiplayermax import AIPlayerMax
 import re
 
@@ -9,8 +9,19 @@ class Game:
 
     def __init__(self):
         self.board = Board(*(Player.ask_board()))
-        self.player1 = HumanPlayer(BLACK)
-        self.player2 = HumanPlayer(WHITE)
+        mode = Player.ask_mode()
+        if mode == MODE_HVSH :
+            self.player1 = HumanPlayer(BLACK)
+            self.player2 = HumanPlayer(WHITE)
+        elif mode == MODE_HVSM:
+            self.player1 = HumanPlayer(BLACK)
+            self.player2 = AIPlayerMax(WHITE)
+        elif mode == MODE_HVSR:
+            self.player1 = HumanPlayer(BLACK)
+            self.player2 = AIRandom(WHITE)
+        elif mode == MODE_RVSM:
+            self.player1 = AIRandom(BLACK)
+            self.player2 = AIPlayerMax(WHITE)
     
     def run(self):
         """Run the game

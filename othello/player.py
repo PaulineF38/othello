@@ -1,4 +1,4 @@
-from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR, MIN_ROWS, MIN_COLS, MAX_ROWS, MAX_COLS
+from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR, MIN_ROWS, MIN_COLS, MAX_ROWS, MAX_COLS, LIST_MODE, LIST_MODE_DESCR
 from .board import Board
 
 class Player() : 
@@ -127,3 +127,24 @@ class Player() :
                 n_rows = Player.ask_rows()
                 n_cols = Player.ask_cols()
         return n_rows, n_cols
+    
+    @staticmethod
+    def ask_mode() -> int:
+        """Asks the players on which mode they want to play
+
+        Returns:
+            int: the mode given by a constant see constants.py, MODE_*
+        """
+        print("Please choose how you want to play the Othello !")
+        for mode in LIST_MODE :
+            print(f"{mode+1} : {LIST_MODE_DESCR[mode]} -")
+
+        answer = ""
+        while not answer.isdigit() or int(answer) in LIST_MODE :
+            try :
+                answer = input(f"Your choice ? (Number between 1 and {len(LIST_MODE)})")
+            except KeyboardInterrupt :
+                print("Choose something else !")
+        
+        return int(answer)
+    
