@@ -46,7 +46,8 @@ class Game:
                     player2_move_str = self.player2.play("Your move: ").lower()
 
             # end of the turn, we loop back (if the game_end is not true)
-        # if game_end is true, we print the scores
+        # if game_end is true, we print the final board and scores
+        print(self.board.draw_board())
         print("End of the game")
         print("Player 1 (black) score: ", self.board.score()["Black "])
         print("Player 2 (white) score: ", self.board.score()["White "])
