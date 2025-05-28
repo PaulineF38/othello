@@ -18,8 +18,8 @@ class Board:
             raise ValueError("The Board must be NxM with N and M two even numbers !")
             
         self._grid = [
-            [Square() for _ in range(n_rows)]
-            for _ in range(n_cols)
+            [Square() for _ in range(n_cols)]
+            for _ in range(n_rows)
         ]
         
         # Define all 8 possible directions around a square (including diagonals)
