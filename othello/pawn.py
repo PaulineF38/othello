@@ -1,4 +1,4 @@
-from constants import BLACK, WHITE, BLACK_STR, WHITE_STR
+from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR
 
 class Pawn:
 
@@ -54,20 +54,3 @@ class Pawn:
             return BLACK_STR
         else :
             return WHITE_STR
-    
-if __name__=='__main__':
-
-    print("----")
-    # Test PAWN init :
-    p_black = Pawn(BLACK)
-    print("Black pawn : " + str(p_black))
-    p_white = Pawn(WHITE)
-    print("White pawn : " + str(p_white))
-    print("----")
-
-    # Test flip
-    pawn = Pawn(WHITE)
-    print("Before flip : " + str(pawn))
-    pawn.flip()
-    print("After flip : " + str(pawn))
-    print("----")

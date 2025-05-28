@@ -1,6 +1,6 @@
-from board import Board
-from player import Player
-from constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
+from .board import Board
+from .player import Player
+from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
 import re
 
 class Game:
@@ -138,6 +138,3 @@ class Game:
             return True
         else:
             return False
-
-if __name__ == '__main__':
-    print("str_to_coord: ", Game.str_to_coord("c4") == (2, 3))

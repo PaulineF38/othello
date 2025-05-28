@@ -1,6 +1,6 @@
-from square import Square
-from constants import BLACK, WHITE, BLACK_STR, WHITE_STR
-from pawn import Pawn
+from .square import Square
+from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR
+from .pawn import Pawn
 
 class Board:
     def __init__(self, n_rows: int = 8, n_cols: int = 8):
@@ -224,11 +224,3 @@ class Board:
             return True
         else:
             return False
-
-
-
-if __name__=='__main__':
-    board1 = Board()
-    print(board1.draw_board())
-    
-

@@ -1,9 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf8 -*-
-#
-# Author : Xavier BEDNAREK
-
-from constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
+from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
 
 class Player() : 
     """ 
@@ -99,9 +94,4 @@ class Player() :
         except KeyboardInterrupt :
             answer = QUIT_STR
         return answer
-
-if __name__=='__main__':
     
-    # Test player init :
-    p_black = Player(BLACK)
-    p_white = Player(WHITE)

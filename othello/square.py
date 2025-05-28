@@ -1,5 +1,5 @@
-from constants import BLACK, WHITE, BLACK_STR, WHITE_STR
-from pawn import Pawn
+from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR
+from .pawn import Pawn
 
 class Square:
 
@@ -43,7 +43,7 @@ class Square:
         return self._adjacent_squares
     
     @adjacent_squares.setter
-    def adjacent_squares(self,adjacent_squares : list)->list:
+    def adjacent_squares(self,adjacent_squares : list):
         self._adjacent_squares=adjacent_squares
 
     
@@ -64,5 +64,3 @@ class Square:
             return  "    "
         else:
             return " " + str(self.content) + " "
-
-    
