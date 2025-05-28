@@ -1,6 +1,6 @@
 from .board import Board
 from .human import Human
-from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
+from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR, MIN_ROWS, MIN_COLS, MAX_ROWS, MAX_COLS
 import re
 
 class Game:
@@ -133,23 +133,23 @@ class Game:
         Returns:
             tuple: number of rows, number of cols
         """
-        print("Choose your board!\n(min 4x4, max 26 columns, and only even numbers)")
+        print("Choose your board!\n(min 4x4, max 26 columns and 100 rows, and only even numbers)")
         n_rows = Game.ask_rows()
         n_cols = Game.ask_cols()
-        while n_rows < 4 or n_cols < 4 or 26 < n_cols or n_rows%2 ==1 or n_cols%2 == 1:
-            if n_rows < 4 or n_cols < 4:
+        while n_rows < MIN_ROWS or n_cols < MIN_COLS or MAX_COLS < n_cols or n_rows%2 ==1 or n_cols%2 == 1:
+            if n_rows < MIN_ROWS or n_cols < MIN_COLS:
                 print("------\nYour Board is invalid\nThe Board must be at least 4x4 !")
-                print("Choose a valid board!\n(min 4x4, max 26 columns, and only even numbers)")
+                print("Choose a valid board!\n(min 4x4, max 26 columns and 100 rows, and only even numbers)")
                 n_rows = Game.ask_rows()
                 n_cols = Game.ask_cols()
-            elif 26 < n_cols:
-                print("------\nYour Board is invalid\nThe Board must have at max 26 columns (A to Z) !")
-                print("Choose a valid board!\n(min 4x4, max 26 columns, and only even numbers)")
+            elif MAX_COLS < n_cols or MAX_ROWS < n_rows:
+                print("------\nYour Board is invalid\nThe Board must have at max 26 columns (A to Z) and 100 rows !")
+                print("Choose a valid board!\n(min 4x4, max 26 columns and 100 rows, and only even numbers)")
                 n_rows = Game.ask_rows()
                 n_cols = Game.ask_cols()
             else: 
                 print("------\nYour Board is invalid\nThe Board must be NxM with N and M two even numbers !")
-                print("Choose a valid board!\n(min 4x4, max 26 columns, and only even numbers)")
+                print("Choose a valid board!\n(min 4x4, max 26 columns and 100 rows, and only even numbers)")
                 n_rows = Game.ask_rows()
                 n_cols = Game.ask_cols()
         return n_rows, n_cols
