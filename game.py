@@ -8,7 +8,7 @@ class Game:
     def __init__(self):
         self.player1 = Player(BLACK)
         self.player2 = Player(WHITE)
-        self.board = Board()
+        self.board = Board(4, 4)
     
     def run(self):
         """Run the game
@@ -62,7 +62,7 @@ class Game:
             tuple: column number, line number
         """
         move_letter = move_str[0:1]
-        move_int = int(move_str[1:2]) - 1
+        move_int = int(move_str[1:]) - 1
         dict_convert = {
             "a": 0,
             "b": 1,
@@ -71,12 +71,30 @@ class Game:
             "e": 4,
             "f": 5,
             "g": 6,
-            "h": 7
+            "h": 7,
+            "i": 8,
+            "j": 9,
+            "k": 10,
+            "l": 11,
+            "m": 12,
+            "n": 13,
+            "o": 14,
+            "p": 15,
+            "q": 16,
+            "r": 17,
+            "s": 18,
+            "t": 19,
+            "u": 20,
+            "v": 21,
+            "w": 22,
+            "x": 23,
+            "y": 24,
+            "z": 25
         }
         return move_int, dict_convert[move_letter]
     
-    @staticmethod
-    def check_move_regex(move_str: str) -> bool:
+    # @staticmethod
+    def check_move_regex(self, move_str: str) -> bool:
         """checks if the move is a valid coordinate (a-h and 1-8)
 
         Args:
@@ -85,7 +103,15 @@ class Game:
         Returns:
             bool: True if valid, False otherwise
         """
-        return bool(re.match(r"^[a-h][1-8]$", move_str))
+        n_rows = self.board.grid_shape()[0]
+        n_cols = self.board.grid_shape()[1]
+        end_digit = str(n_rows%10)
+        end_letter = chr(96+n_cols)
+        if n_rows < 10:
+            regex = bool(re.match(rf"^[a-{end_letter}][1-{end_digit}]$", move_str))
+        else:
+            regex = bool(re.match(rf"^[a-{end_letter}]([1-9]|1[0-{end_digit}])$", move_str))
+        return regex
 
     def game_end(self) -> bool:
         """checks whether the game should be ended, because no possible moves
@@ -99,4 +125,4 @@ class Game:
             return False
 
 if __name__ == '__main__':
-    print("str_to_coord: ", Game.str_to_coord("C4") == (2, 3))
+    print("str_to_coord: ", Game.str_to_coord("c4") == (2, 3))

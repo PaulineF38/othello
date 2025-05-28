@@ -45,6 +45,16 @@ class Board:
     def grid(self):
         return self._grid
 
+    def grid_shape(self) -> tuple:
+        """Extracts the shape of the grid (n_rows and n_cols)
+
+        Returns:
+            tuple: number of rows, number of cols
+        """
+        n_rows = len(self.grid)
+        n_cols = len(self.grid[0])
+        return n_rows, n_cols
+
     def draw_board(self) -> str: 
         """ Display the board in the terminal.
 
