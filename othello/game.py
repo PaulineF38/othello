@@ -110,6 +110,10 @@ class Game:
         print(" ---      Score      ---")
         print(f"{self.player1.name} (player 1 : {BLACK_STR}) score: ", self.board.score()["Black "])
         print(f"{self.player2.name} (player 2 : {WHITE_STR}) score: ", self.board.score()["White "])
+        print(" ---      Winner      ---")
+        print(self.winner())
+
+
 
     @staticmethod
     def str_to_coord(move_str: str) -> tuple:
@@ -193,3 +197,18 @@ class Game:
             return True
         else:
             return False
+
+    def winner(self) -> str:
+        """checks who is the winner
+
+        Returns:
+            the name of player
+        """
+        if self.board.score()["Black "] > self.board.score()["White "]:
+            return f"Congradulation !! you are THE WINNER {self.player1.name}\nBOOOOOOOOH!! you are THE LOSER {self.player2.name}"
+        elif self.board.score()["Black "] == self.board.score()["White "]:
+            return f"Both are equal"
+        else:
+            return f"Congradulation !! you are THE WINNER {self.player2.name}\nBOOOOOOOOH!! you are THE LOSER {self.player1.name}"
+        
+        
