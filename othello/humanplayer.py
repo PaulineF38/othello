@@ -1,7 +1,7 @@
 from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
 from .player import Player
 
-class Human(Player) : 
+class HumanPlayer(Player) : 
     """ 
     A Human Player defined by its name and the color of its pawns
     """
@@ -17,7 +17,7 @@ class Human(Player) :
             color (int): Color of the pawns of the player
         """
         # Calling superclass constructor
-        super().__init__(color, Human.ask_name()) 
+        super().__init__(color, HumanPlayer.ask_name()) 
         # Display welcome message
         print("Welcome " + self.name + " !", end=" ")
         if self.color == BLACK :
@@ -41,7 +41,6 @@ class Human(Player) :
         """
         return input("Choose a name : ")
 
-    # This is an override :
     def play(self, info: str) -> str:
         """Display something to the player and ask him what to do
 
