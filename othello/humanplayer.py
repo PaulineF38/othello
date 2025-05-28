@@ -1,7 +1,7 @@
 from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
 from .player import Player
 
-class Human(Player) : 
+class HumanPlayer(Player) : 
     """ 
     A Human Player defined by its name and the color of its pawns
     """

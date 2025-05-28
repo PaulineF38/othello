@@ -1,7 +1,7 @@
 from .player import Player
 from .board import Board
 
-class AI(Player) : 
+class AIPlayer(Player) : 
     """ 
     Base Class for AI Players
     """

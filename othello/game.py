@@ -1,5 +1,5 @@
 from .board import Board
-from .human import Human
+from .humanplayer import HumanPlayer
 from .player import Player
 from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
 import re
@@ -8,8 +8,8 @@ class Game:
 
     def __init__(self):
         self.board = Board(*(Player.ask_board()))
-        self.player1 = Human(BLACK)
-        self.player2 = Human(WHITE)
+        self.player1 = HumanPlayer(BLACK)
+        self.player2 = HumanPlayer(WHITE)
     
     def run(self):
         """Run the game
