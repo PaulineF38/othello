@@ -12,6 +12,8 @@ class Board:
         """  
         if n_rows < 4 or n_cols < 4 :
             raise ValueError("The Board must be at least 4x4 !")
+        if 26 < n_cols :
+            raise ValueError("The Board must have at max 26 columns (A to Z) !")
         if n_rows%2 ==1 or n_cols%2 == 1 :
             raise ValueError("The Board must be NxM with N and M two even numbers !")
             
