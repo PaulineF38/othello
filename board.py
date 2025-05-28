@@ -167,7 +167,7 @@ class Board:
             bool: True = the move is legal
                   False = the move is not legal
         """
-        return self.grid[i][j].empty_square and self._adjacent(i, j) and len(self._capture(color, i, j))>0 
+        return self.grid[i][j].empty_square() and self._adjacent(i, j) and len(self._capture(color, i, j))>0 
 
     def list_legal_moves(self, color: int) -> list:
         """
