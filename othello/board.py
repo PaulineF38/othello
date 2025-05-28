@@ -1,5 +1,5 @@
 from .square import Square
-from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR
+from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, MIN_ROWS, MIN_COLS, MAX_ROWS, MAX_COLS
 from .pawn import Pawn
 
 class Board:
@@ -10,10 +10,10 @@ class Board:
             n_rows (int): number of rows
             n_cols (int): number of cols
         """  
-        if n_rows < 4 or n_cols < 4 :
+        if n_rows < MIN_ROWS or n_cols < MIN_COLS :
             raise ValueError("The Board must be at least 4x4 !")
-        if 26 < n_cols :
-            raise ValueError("The Board must have at max 26 columns (A to Z) !")
+        if MAX_COLS < n_cols or MAX_ROWS < n_rows:
+            raise ValueError("The Board must have at max 26 columns (A to Z) and 100 rows !")
         if n_rows%2 ==1 or n_cols%2 == 1 :
             raise ValueError("The Board must be NxM with N and M two even numbers !")
             

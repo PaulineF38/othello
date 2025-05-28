@@ -1,14 +1,14 @@
 from .board import Board
-from .player import Player
-from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
+from .human import Human
+from .constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR, MIN_ROWS, MIN_COLS, MAX_ROWS, MAX_COLS
 import re
 
 class Game:
 
     def __init__(self):
-        self.player1 = Player(BLACK)
-        self.player2 = Player(WHITE)
-        self.board = Board()
+        self.player1 = Human(BLACK)
+        self.player2 = Human(WHITE)
+        self.board = Board(*(self.ask_board()))
     
     def run(self):
         """Run the game
@@ -160,6 +160,7 @@ class Game:
         }
         return move_int, dict_convert[move_letter]
     
+<<<<<<< HEAD
     def coord_to_str(i, j):
         letter = chr(ord('a') + j).upper()
         number = i + 1 
@@ -173,6 +174,54 @@ class Game:
 
         
     # @staticmethod
+=======
+    @staticmethod
+    def ask_rows() -> str:
+        """ask number of rows to players
+
+        Returns:
+            str: number of rows
+        """
+        return int(input("Number of rows: "))
+    
+    @staticmethod
+    def ask_cols() -> str:
+        """ask number of cols to players
+
+        Returns:
+            str: number of cols
+        """
+        return int(input("Number of cols: "))
+
+    @staticmethod
+    def ask_board() -> tuple:
+        """Asks the players on which board they want to play
+
+        Returns:
+            tuple: number of rows, number of cols
+        """
+        print("Choose your board!\n(min 4x4, max 26 columns and 100 rows, and only even numbers)")
+        n_rows = Game.ask_rows()
+        n_cols = Game.ask_cols()
+        while n_rows < MIN_ROWS or n_cols < MIN_COLS or MAX_COLS < n_cols or n_rows%2 ==1 or n_cols%2 == 1:
+            if n_rows < MIN_ROWS or n_cols < MIN_COLS:
+                print("------\nYour Board is invalid\nThe Board must be at least 4x4 !")
+                print("Choose a valid board!\n(min 4x4, max 26 columns and 100 rows, and only even numbers)")
+                n_rows = Game.ask_rows()
+                n_cols = Game.ask_cols()
+            elif MAX_COLS < n_cols or MAX_ROWS < n_rows:
+                print("------\nYour Board is invalid\nThe Board must have at max 26 columns (A to Z) and 100 rows !")
+                print("Choose a valid board!\n(min 4x4, max 26 columns and 100 rows, and only even numbers)")
+                n_rows = Game.ask_rows()
+                n_cols = Game.ask_cols()
+            else: 
+                print("------\nYour Board is invalid\nThe Board must be NxM with N and M two even numbers !")
+                print("Choose a valid board!\n(min 4x4, max 26 columns and 100 rows, and only even numbers)")
+                n_rows = Game.ask_rows()
+                n_cols = Game.ask_cols()
+        return n_rows, n_cols
+
+>>>>>>> dev
     def check_move_regex(self, move_str: str) -> bool:
         """checks if the move is a valid coordinate (a-h and 1-8)
 
