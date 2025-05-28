@@ -18,8 +18,8 @@ class Board:
             raise ValueError("The Board must be NxM with N and M two even numbers !")
             
         self._grid = [
-            [Square() for _ in range(n_rows)]
-            for _ in range(n_cols)
+            [Square() for _ in range(n_cols)]
+            for _ in range(n_rows)
         ]
         
         # Define all 8 possible directions around a square (including diagonals)
@@ -47,6 +47,16 @@ class Board:
     def grid(self):
         return self._grid
 
+    def grid_shape(self) -> tuple:
+        """Extracts the shape of the grid (n_rows and n_cols)
+
+        Returns:
+            tuple: number of rows, number of cols
+        """
+        n_rows = len(self.grid)
+        n_cols = len(self.grid[0])
+        return n_rows, n_cols
+
     def draw_board(self) -> str: 
         """ Display the board in the terminal.
 
@@ -54,15 +64,15 @@ class Board:
             str: board of the game that is send to Game.
         """    
         # First raw of the board
-        display = "    " + "    ".join([ chr(ord("A")+i) for i in range(0, len(self._grid[0])) ] ) +"\n"
-        display += " +----"
+        display = "".rjust(3+len(str(len(self.grid)))) + "    ".join([ chr(ord("A")+i) for i in range(0, len(self._grid[0])) ] ) +"\n"
+        display += "+----".rjust(5+len(str(len(self.grid))))
         #add first line of +---- +
         for i in range (len(self._grid[0])-1):
             display += "+----"
         display += "+\n"
         for i, row in enumerate(self._grid):
-            # print nulber of rows
-            display += f"{i+1}"
+            # print number of rows
+            display += f"{i+1}".rjust(len(str(len(self.grid))))
             
             for square in row:
                 display += "|"
@@ -70,7 +80,7 @@ class Board:
                 display += str(square)
             # close the last line of the board with +----+
             display += '|\n'
-            display += " +----"
+            display += "+----".rjust(5+len(str(len(self.grid))))
             for i in range (len(self._grid[0])-1):
                 display += "+----"
             display += "+\n"
