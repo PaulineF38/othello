@@ -8,7 +8,7 @@ class Game:
     def __init__(self):
         self.player1 = Player(BLACK)
         self.player2 = Player(WHITE)
-        self.board = Board(6,8)
+        self.board = Board()
     
     def run(self):
         """Run the game
