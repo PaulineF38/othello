@@ -3,7 +3,7 @@
 #
 # Author : Xavier BEDNAREK
 
-from constants import BLACK, WHITE, BLACK_STR, WHITE_STR
+from constants import BLACK, WHITE, BLACK_STR, WHITE_STR, QUIT_STR
 
 class Player() : 
     """ 
@@ -33,6 +33,7 @@ class Player() :
         if self.color == WHITE :
             print("You play white pawns : " + WHITE_STR +" !", end=" ")
         print("Good luck !")
+        print("")
 
     # --------------------------------------------------------------------------
     #                                                                 Properties
@@ -93,7 +94,11 @@ class Player() :
         Returns:
             str: input given by the user
         """
-        return input(info)
+        try :
+            answer = input(info)
+        except KeyboardInterrupt :
+            answer = QUIT_STR
+        return answer
 
 if __name__=='__main__':
     
