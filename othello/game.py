@@ -139,7 +139,7 @@ class Game:
 
     @staticmethod
     def str_to_coord(move_str: str) -> tuple:
-        """Converts the move from an str format (user format) into a tuple format (program format)
+        """Converts the move from a str format (user format) into a tuple format (program format)
 
         Args:
             move_str (str): user input
@@ -147,8 +147,12 @@ class Game:
         Returns:
             tuple: column number, line number
         """
-        move_letter = move_str[0:1]
-        move_int = int(move_str[1:]) - 1
+        if move_str[0].isalpha() :
+            move_letter = move_str[0]
+            move_int = int(move_str[1:]) - 1
+        else :
+            move_letter = move_str[-1]
+            move_int = int(move_str[:-1]) - 1
         dict_convert = {
             "a": 0,
             "b": 1,
@@ -211,7 +215,7 @@ class Game:
         return move_str
 
     def check_move_regex(self, move_str: str) -> bool:
-        """checks if the move is a valid coordinate (a-h and 1-8)
+        """checks if the move is a valid coordinate
 
         Args:
             move_str (str): the string of the user input
@@ -223,11 +227,24 @@ class Game:
         n_cols = self.board.grid_shape()[1]
         end_digit = str(n_rows%10)
         end_letter = chr(96+n_cols)
-        if n_rows < 10:
-            regex = bool(re.match(rf"^[a-{end_letter}][1-{end_digit}]$", move_str))
-        else:
-            regex = bool(re.match(rf"^[a-{end_letter}]([1-9]|1[0-{end_digit}])$", move_str))
-        return regex
+
+        # Regex with group to search "B52"-like or "52B"-like strings
+        m = re.match(rf'(?P<letter_number>^[A-Za-z](?:[1-9][0-9]?|100)$)|(?P<number_letter>^(?:[1-9][0-9]?|100)[A-Za-z]$)', move_str)
+
+        if m is not None : # There is a match !
+            if m.groupdict()["letter_number"] is not None : # Match smthg like B52
+                letter = move_str[0].lower()
+                number = int(move_str[1:])
+            elif m.groupdict()["number_letter"] is not None : # Match smthg like 52B
+                letter = move_str[-1].lower()
+                number = int(move_str[:-1])
+            else :
+                raise RuntimeError("This should not have been reached ...")
+            move_is_ok = (letter <= end_letter and number <= n_rows)
+        else : # There is no match !
+            move_is_ok = False
+
+        return move_is_ok
 
     def game_end(self) -> bool:
         """checks whether the game should be ended, because no possible moves
