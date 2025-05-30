@@ -225,11 +225,10 @@ class Game:
         """
         n_rows = self.board.grid_shape()[0]
         n_cols = self.board.grid_shape()[1]
-        end_digit = str(n_rows%10)
         end_letter = chr(96+n_cols)
 
         # Regex with group to search "B52"-like or "52B"-like strings
-        m = re.match(rf'(?P<letter_number>^[A-Za-z](?:[1-9][0-9]?|100)$)|(?P<number_letter>^(?:[1-9][0-9]?|100)[A-Za-z]$)', move_str)
+        m = re.match(rf'(?P<letter_number>^[A-Za-z](?:[1-9][0-9]*)$)|(?P<number_letter>^(?:[1-9][0-9]*)[A-Za-z]$)', move_str)
 
         if m is not None : # There is a match !
             if m.groupdict()["letter_number"] is not None : # Match smthg like B52
